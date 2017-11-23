@@ -1,0 +1,25 @@
+Report Outline:
+
+Josh 
+Dan *
+
+1. Motivation
+2. Basic Definitions
+    i. LPs and IPs *
+    ii. Group Theory & Representation Theory *
+    iii. Core points, invariant subspaces
+3. Methods & Algorithms
+    i. Invariant Subspaces
+A. Method 1.
+B. Method 2.
+Ii. Core points + IPs
+    iii. Constraints
+Iv. CPLEX *
+4. Example Computations *
+-> ?. Algorithm Implementations
+5. Computational Results *
+6. Recommendations *
+7. Bibliography
+-> ?. Code/Repository
+    
+
