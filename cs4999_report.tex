@@ -54,6 +54,10 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
+\newtheorem*{remark}{Remark}
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
 
 %%% END Article customizations
 
@@ -69,6 +73,14 @@
 
 \section{Introduction}
 
+Linear programming is a method of mathematical optimization, where the goal is to find the optimal value of a linear objective function over a set of variables, which are constrained by a set of linear inequalities. If all the variables must also be integers, then the problem is referred to as an integer program. While linear programs may be efficiently solved with the use of algorithms such as the Simplex Method, there is no reliably fast method for integer programming problems. In fact, they have been proven to be NP-Hard. Because of this, better methods and algorithms for solving integer programs is an active field of research.
+
+In this study, we investigated a method to speed up the solving of a special set of symmetric integer programs. An integer program (hereafter referred to as an IP) has symmetry if the value of its objective function is invariant under permutations of the coordinate axes. More plainly, swapping around the entries of a vector $v$ describing the solution to an IP doesn't change the value of $f(v)$, where $f$ is the objective function.
+
+When an IP is symmetric in this way we can find a set of orthogonal subspaces in $\mathbb{R}^n$, at least one of which any optimal solution must lie "close to". We can therefore restrict the search space for the optimum by setting up quadratic bounds, restricting how far away an answer can be from the aforementioned subspaces. Exactly how "close to" one of these subspaces the solution has to be is not yet known. The goal of this project is to experimentally test different possible bounds and discover what the effect of adding these bounds are on the runtime of solving IPs using standard solvers. In general, it is expected that with a tighter bound, the solver should be able to find a solution faster than with a looser bound, as there is less space to search through. By experimentally checking various bounds, we can determine whether or not this strategy would be useful once methods to find an exact bound are discovered.
+
+This report consists of four main sections. First, definitions of terms from linear programming, group theory, and geometry required as background. Second we look at the algorithms and methods used to construct special subspaces and integer programs, and compute the additional quadratic constraints. Third we list some of the computational results found. Finally, we give some comments and recommendations for future work.
+
 \section{Definitions}
 
 \subsection{Linear and Integer Programming}
@@ -77,11 +89,12 @@
 
 \subsection{Core Points}
 
-In this section, we will be looking over the definitions of core points and related concepts.
+In this section, we will be looking at the definition of what a core point is. These are points that were first looked at  by \cite{some}
 
 \begin{definition}[Core Point]
-A core point of a permutation group $G$ is a point $z \in \mathbb{Z}^n$ such that the orbit polytope $\textrm{\textbf{conv}}(Gz)$ contains no interior integer points. In other words, $\textrm{\textbf{conv}}(Gz) \cap \mathbb{Z}^n = Gz$.
+A core point of a permutation group $G$ is a point $z \in \mathbb{Z}^n$ such that the orbit polytope $\textrm{conv}(Gz)$ contains no interior integer points. In other words, $\textrm{conv}(Gz) \cap \mathbb{Z}^n = Gz$. The set of all core points of $G$ is called the \textbf{core set} and is denoted by $\textrm{core}(G)$.
 \end{definition}
+
 
 The optimal solution to an symmetric integer program will always be a core point of the underlying symmetry group.
 
@@ -91,15 +104,35 @@ In order to restrict the search space for integer programming problems, we will 
 
 \subsection{Computing Invariant Subspaces}
 
-There are two methods we can use to compute invariants subspaces of symmetry groups. One method relies primarily on the irreducible characters of a group representation, while the other sets up and solves a set of polynomial equations constructed from the orbits of a group. 
+There are two methods we can use to compute invariants subspaces of symmetry groups. One method relies primarily on the irreducible characters of a group representation, while the other sets up and solves a set of polynomial equations constructed from the orbits of a group.
 
 \subsubsection{Irreducible Characters}
 
+This method was the primary one used during the project, and makes use of results found in character theory.
 
+\begin{definition}[Character] 
+The \textbf{character} $\chi_\rho : G \rightarrow \mathbb{C}$ of a representation $\rho : G \rightarrow GL_n(\mathbb{C})$ is defined as $\textrm{tr}(\rho(g))$ for all $g \in G$.
+\end{definition}
+
+Many formulas dealing with representations of groups can be transformed into formulas involving their characters, which are much easier to work with computationally.
 
 \subsubsection{Solving Polynomials}
 
-\subsection{Constructing Core Points \& Quadratic Constraints}
+\subsection{Constructing Core Points \& Integer Programs}
+
+In order to test out the effectiveness of the added constraints, we'll need to construct integer programs with symmetries that are difficult to solve with standard solvers. For this purpose, we can use the orbit polytopes of core points of groups. Since the vertices of these polytopes are permutations of a vector, they will have the corresponding group symmetry. In addition, as the orbit polytope of a core point contains no integer points aside from the vertices, if we can cut off these vertices then the integer program corresponding to this polytope will be infeasible. This will ensure that a solver won't by chance rapidly solve the problem, and will have to fully explore the branch and bound tree.
+
+So to find integer programs we can use to test our methods, we'll need to find core points. This is non-trivial, but from \cite{rehn} we have some tools for this. In particular, there is a certain class of groups (those whose representations can be decomposed into at least two rational subspaces, excluding the fixed space) which have an infinite number of non-isomorphic core points, along with a simple method to generate them. Much of the reasoning depends on points that have globally minimal projection.
+
+\begin{definition}[Globally Minimal Projection]
+A point $z \in \ZZ$ has \textbf{globally minimal projection} with respect to a subspace $V \subseteq \mathbb{R}^n$ if $||z|_V|| \leq ||z'||_V||$ for all $z' \in \textrm{aff}(Gz) \cap \mathbb{Z}^n$.
+\end{definition}
+
+So if a point has globally minimal projection onto a subspace, it is the closest point in the affine hull of $Gz$ to that subspace.
+
+\subsection{Quadratic Constraints}
+
+
 
 \subsection{Solving Integer Programs with CPLEX}
 
