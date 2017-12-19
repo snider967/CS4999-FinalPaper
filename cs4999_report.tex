@@ -27,6 +27,8 @@
 \usepackage{booktabs} % for much better looking tables
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{listings}
 \usepackage{array} % for better arrays (eg matrices) in maths
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
@@ -55,9 +57,12 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
 
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\RR}{\mathbb{R}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\myspan}[1]{\textrm{span} \lbrace {#1} \rbrace}
 
 %%% END Article customizations
 
@@ -71,6 +76,7 @@
 \begin{document}
 \maketitle
 
+%% INTRODUCTION
 \section{Introduction}
 
 Linear programming is a method of mathematical optimization, where the goal is to find the optimal value of a linear objective function over a set of variables, which are constrained by a set of linear inequalities. If all the variables must also be integers, then the problem is referred to as an integer program. While linear programs may be efficiently solved with the use of algorithms such as the Simplex Method, there is no reliably fast method for integer programming problems. In fact, they have been proven to be NP-Hard. Because of this, better methods and algorithms for solving integer programs is an active field of research.
@@ -81,12 +87,14 @@ When an IP is symmetric in this way we can find a set of orthogonal subspaces in
 
 This report consists of four main sections. First, definitions of terms from linear programming, group theory, and geometry required as background. Second we look at the algorithms and methods used to construct special subspaces and integer programs, and compute the additional quadratic constraints. Third we list some of the computational results found. Finally, we give some comments and recommendations for future work.
 
+%% DEFINITIONS
 \section{Definitions}
 
 \subsection{Linear and Integer Programming}
 
 \subsection{Groups and Representations}
 
+% CORE POINTS
 \subsection{Core Points}
 
 In this section, we will be looking at the definition of what a core point is. These are points that were first looked at  by \cite{some}
@@ -96,28 +104,205 @@ A core point of a permutation group $G$ is a point $z \in \mathbb{Z}^n$ such tha
 \end{definition}
 
 
-The optimal solution to an symmetric integer program will always be a core point of the underlying symmetry group.
 
+%% METHODS
 \section{Methods \& Algorithms}
 
 In order to restrict the search space for integer programming problems, we will need to have methods to compute the invariant subspaces of a symmetry and then generate corresponding quadratic constraints.
 
+% INVARIANT SUBSPACES
 \subsection{Computing Invariant Subspaces}
 
 There are two methods we can use to compute invariants subspaces of symmetry groups. One method relies primarily on the irreducible characters of a group representation, while the other sets up and solves a set of polynomial equations constructed from the orbits of a group.
 
+% METHOD 1
 \subsubsection{Irreducible Characters}
 
-This method was the primary one used during the project, and makes use of results found in character theory.
+This method was the primary one used during the project, and makes use of results found in character theory. Many formulas dealing with representations of groups can be transformed into formulas involving their characters, which are much easier to work with computationally.
 
 \begin{definition}[Character] 
 The \textbf{character} $\chi_\rho : G \rightarrow \mathbb{C}$ of a representation $\rho : G \rightarrow GL_n(\mathbb{C})$ is defined as $\textrm{tr}(\rho(g))$ for all $g \in G$.
 \end{definition}
 
-Many formulas dealing with representations of groups can be transformed into formulas involving their characters, which are much easier to work with computationally.
+Similarly to how representations can be decomposed into a direct sum of irreducible representations, the character of a representation can be decomposed into a linear combination of irreducible characters. This means we can write any character of a group G as
 
+	$$ \chi = m_1\chi_1 + m_2\chi_2 + ... + m_k\chi_k, $$
+
+where $m_i \in \mathbb{Z}_{\geq 0}$, and $\chi_i$ is the character of the $i$th irreducible representation of $G$. We can compute each $m_i$ by taking an inner product of the characters, using the formula:
+
+\begin{equation}
+m_i = \frac{1}{|G|} \sum_{g \in G} \chi_i(g) \chi(g^{-1}).
+\end{equation}
+
+From this, we can see that as long as we know the values of the irreducible characters, we can easily compute what the decomposition is for any character.
+
+The decomposition of a character $\chi$ into a sum of irreducible characters corresponds to the decomposition of the related representation $\rho$ into a direct sum of subrepresentations. We can rewrite $\rho$ into
+
+	$$ \rho = \rho_1^{(m_1)} \oplus \rho_2^{(m_2)} \oplus ... \rho_k^{(m_k)}. $$
+
+Each of these subrepresentations $\rho_i^{(m_i)}$ corresponds to an invariant subspace $V_i$, which is what we're really interested in. In \cite{char}, we can find the following formula for the projection of $\mathbb{C}^n$ onto $V_i$:
+
+\begin{equation} \label{eq:projection}
+P_i = \frac{m_i\chi_i(1)}{|G|} \sum_{g \in G} \chi_i(g^{-1})\rho(g).
+\end{equation}
+
+The column space of $P_i$ is then a basis for $V_i$. At this point we have all of the basic tools necessary for computation of invariant subspaces. However these formulas do have a weakness: as they require summing over the all of the group elements, the runtime required can be exorbitant for larger groups. We can make our lives a little easier by doing some computations with conjugacy classes of groups, along with a couple of additional small optimizations.
+
+\begin{definition}[Conjugacy Classes]
+For a group $G$, two elements $a, b \in G$ are said to be \textbf{conjugate} if $a = gbg^{-1}$ for some $g \in G$. A \textbf{conjugacy class} is a subset of $G$ containing elements that conjugate with one another. The conjugacy class containing an element $g \in G$ is denoted by $Cl(g)$.
+\end{definition}
+
+This relation can easily be seen to be reflexive, symmetric, and transitive, and is therefore an equivalence relation. As such, we can partition $G$ in a set of disjoint conjugacy classes. This is very useful to us because characters are constant over a conjugacy class, so by dealing with conjugacy classes we can avoid computations summing over every group element. Instead we can sum over the conjugacy classes whenever we are only dealing with characters. We can perform an additional optimization making use of the fact that $\chi(g^{-1}) = \overline{\chi(g)}$, where $\overline z$ denotes the complex conjugate of $z \in \mathbb{C}$. This allows us to compute $\chi(g^{-1})$ without needing to know what $g^{-1}$ actually equals. We can now re-express the previous formula for computing the coefficients of the irreducible characters in the decomposition of a character by
+
+\begin{equation} \label{eq:chars}
+m_i = \frac{1}{|G|} \sum_{Cl(g) \subseteq G} |Cl(g)| \chi_i(g) \overline{\chi(g)}.
+\end{equation}
+
+This is the equation we will actually be implementing. Unfortunately as for the second part of finding invariant subspaces, computing the projection matrices $P_i$, due to the fact that the representation itself is being used in the formula we will not be able to make use of conjugacy classes to save time, as representations are definitely not constant over conjugacy classes.
+
+All of these computations were performed using GAP, which has excellent support for computations with characters. Character tables containing information about characters of a group $G$ can be obtained with the function \code{CharacterTable(G)}, with the values for all irreducible characters of a group found in the attribute \code{Irr}. The following code block is the GAP implementation of (\ref{eq:chars}).
+
+\begin{lstlisting}[frame = single]
+tbl := CharacterTable(G);;
+irrs := Irr(tbl);;
+reg := RegularCharacters(G,dim);;
+
+m := List(irrs, i -> 0);;
+for i in [1..Size(irrs)] do
+    m[i] := Sum([1..Size(SizesConjugacyClasses(tbl))],
+                j -> SizesConjugacyClasses(tbl)[j]*irrs[i][j]
+		    *ComplexConjugate(reg[j]) ) / Order(G);
+od;
+\end{lstlisting}
+
+Here \code{SizesConjugacyClasses} is a list of the cardinalities of the conjugacy classes of $G$. Next we have the implementation of (\ref{eq:projection}) in GAP:
+
+\begin{lstlisting}[frame = single]
+P := List(irrs, i -> NullMat(dim,dim));;
+for i in [1..Size(irrs)] do
+    if m[i] <> 0 then
+        for g in G do
+            irr_index := Position(cclasses,ConjugacyClass(G,g));
+            reg_rep := PermutationMat(g,dim);
+            P[i] := P[i] + ComplexConjugate(irrs[i][irr_index])
+			*reg_rep;
+        od;
+        P[i] := m[i]*irrs[i][1]/Order(G) * P[i];
+    fi;
+od;
+\end{lstlisting}
+
+\code{Position(Classes, C)} returns the index of a conjugacy class $C$ in the list of conjugacy classes.
+
+Once we've computed the projection matrices $P_i$, all that's left to do is compute their column spaces. A simple method to achieve this in GAP is to transpose the matrix with \code{TransposedMat}, and then find the row space of that using the \code{BaseMat} function. After that, we will have a list of bases of invariant subspaces for a group.
+
+\begin{example}
+Consider the permutation group $G = \langle (12), (34) \rangle \cong S_2 \times S_2 $, with the regular representation $\rho : G \rightarrow GL_4(\mathbb{C})$ mapping permutations to permutation matrices. We have $\rho(()) = I$, 
+\[
+\rho((12)) =
+	\begin{bmatrix}
+	0 & 1 & 0 & 0 \\
+	1 & 0 & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1
+	\end{bmatrix}
+,\
+\rho((34)) =
+	\begin{bmatrix}
+	1 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 \\
+	0 & 0 & 0 & 1 \\
+	0 & 0 & 1 & 0
+	\end{bmatrix}
+,\
+\rho((12)(34)) =
+	\begin{bmatrix}
+	0 & 1 & 0 & 0 \\
+	1 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 1 \\
+	0 & 0 & 1 & 0
+	\end{bmatrix},
+\]
+from which it is easy to see that
+\[
+\chi(()) = 4,\ \chi((12)) = 2,\ \chi((34)) = 2, \textrm{and}\ \chi((12)(34)) = 0.
+\]
+We can write this function compactly as an array indexed by group elements $\chi = \lbrack 4, 2, 2, 0 \rbrack$. By doing a quick calculation with GAP, we can get that the irreducible characters of this group are
+\[
+\chi_1 = \lbrack 1, 1, 1, 1 \rbrack, \
+\chi_2 = \lbrack 1, -1, -1, 1 \rbrack
+\]
+\[
+\chi_3 = \lbrack 1, -1, 1, -1 \rbrack, \
+\chi_4 = \lbrack 1, 1, -1, -1 \rbrack.
+\]
+
+Now we can compute the coefficients of the irreducible character decomposition $\chi = m_1\chi_1 + m_2\chi_2 + m_3\chi_3 + m_4\chi_4$:
+\[ m_1 = (1 \cdot 4 + 1 \cdot 2 + 1 \cdot 2 + 1 \cdot 0)/4 = 8/4 = 2 \]
+\[ m_2 = (1 \cdot 4 + (-1) \cdot 2 + (-1) \cdot 2 + 1 \cdot 0)/4 = 0/4 = 0 \]
+\[ m_3 = (1 \cdot 4 + (-1) \cdot 2 + 1 \cdot 2 + (-1) \cdot 0)/4 = 4/4 = 1 \]
+\[ m_4 = (1 \cdot 4 + 1 \cdot 2 + (-1) \cdot 2 + (-1) \cdot 0)/4 = 4/4 = 1 \]
+
+Therefore $\chi = 2\chi_1 + \chi_3 + \chi_4$. We can now apply Equation \eqref{eq:projection} to find e.g. $P_1$:
+
+\[
+P_1 = \frac{m_1\chi_1(1)}{4}
+	\left(
+	\begin{bmatrix}
+	1 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+	0 & 1 & 0 & 0 \\
+	1 & 0 & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+	1 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 \\
+	0 & 0 & 0 & 1 \\
+	0 & 0 & 1 & 0
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+	0 & 1 & 0 & 0 \\
+	1 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 1 \\
+	0 & 0 & 1 & 0
+	\end{bmatrix},
+	\right)
+\]
+\[
+P_1 = \frac{2}{4} \cdot
+	\begin{bmatrix}
+	2 & 2 & 0 & 0 \\
+	2 & 2 & 0 & 0 \\
+	0 & 0 & 2 & 2 \\
+	0 & 0 & 2 & 2 
+	\end{bmatrix}
+	= \begin{bmatrix}
+	1 & 1 & 0 & 0 \\
+	1 & 1 & 0 & 0 \\
+	0 & 0 & 1 & 1 \\
+	0 & 0 & 1 & 1 
+	\end{bmatrix}
+\]
+Taking the column space of $P_1$, we find that $V_1 = \myspan{(1, 1, 0, 0), (0, 0, 1, 1)}$. By the same method we get $V_2 = \myspan{(1, -1, 0, 0)}$ and $V_3 = \myspan{(0, 0, -1, 1)}$. Therefore $\myspan{(1, 1, 0, 0), (0, 0, 1, 1)} \oplus \myspan{(1, -1, 0, 0)} \oplus \myspan{(0, 0, -1, 1)}$ is a decomposition of $\mathbb{C}^4$ into $G$-invariant subspaces.
+\end{example}
+
+As stated earlier, this was the primary method used in this project, as aside from the symmetric and alternating groups, most groups we looked at had relatively small orders (less than a few hundred thousand). With larger groups, another method is required to solve for their invariant subspaces.
+
+% METHOD 2
 \subsubsection{Solving Polynomials}
 
+An alternative method 
+
+%% CORE POINTS + IPS
 \subsection{Constructing Core Points \& Integer Programs}
 
 In order to test out the effectiveness of the added constraints, we'll need to construct integer programs with symmetries that are difficult to solve with standard solvers. For this purpose, we can use the orbit polytopes of core points of groups. Since the vertices of these polytopes are permutations of a vector, they will have the corresponding group symmetry. In addition, as the orbit polytope of a core point contains no integer points aside from the vertices, if we can cut off these vertices then the integer program corresponding to this polytope will be infeasible. This will ensure that a solver won't by chance rapidly solve the problem, and will have to fully explore the branch and bound tree.
@@ -130,9 +315,11 @@ A point $z \in \ZZ$ has \textbf{globally minimal projection} with respect to a s
 
 So if a point has globally minimal projection onto a subspace, it is the closest point in the affine hull of $Gz$ to that subspace.
 
+% QUADRATICS
+
 \subsection{Quadratic Constraints}
 
-
+From 
 
 \subsection{Solving Integer Programs with CPLEX}
 
