@@ -114,7 +114,7 @@ An integer program in this context, is a linear program where some or all of the
 Typically, when an IP is infeasible the optimizer always has to check every single part of the IP. However, because of the fact the infeasible programs have symmetry as mentioned in the introduction, we can introduce specially constructed quadratic constraints. These quadratic constraints are less than or equal to some constant $C$, which is currently unknown. As we assume the value of $C$ to be bigger and bigger, the amount of time it takes to determine wheither the program is infeasible gets longer and longer, with the quickest solution being at $C = 0$. This rate isn't monotonic however, and the preliminary results cam be found in the Computational Results section later.
 
 \subsection{Groups and Representations}
-One of our methods of constraint generation uses the idea of characters. Characters are a concept that require a solid understanding of both Groups and Group Representations. In this section we will try and give sufficient background into Group and Representation Theory, however this section should not be a replacement for an intermediate Group Theory course.
+One of our methods of constraint generation uses the idea of characters. Characters are a concept that require a solid understanding of both Groups and Group Representations. In this section we will try and give sufficient background into Group and Representation Theory, however if further knowledge is needed a group theory textbook could be helpful.
 
 \begin{definition} [Group]
 A group $G(S,*)$ is an algrebraic structure which consists of a set of elements $S$ and an operation between the elements $*$ which maps any two elements to a third element within $S$. The group must also satisfy the four group axioms, closure, associativity, identity and invertibility.
@@ -123,11 +123,10 @@ A group $G(S,*)$ is an algrebraic structure which consists of a set of elements 
 This may seem slightly abstract, however it should become clear with a rather mundane example. Consider the group of all integers under addition. If we use the above notation, we'd have a group $G(Z, +)$ where $Z$ is the set of all integers and $+$ is the addition operation. It immediately becomes clear based on the axioms that this group is legitimate. Closure is satisfied because any integer plus another integer yeilds an integer result. Associativity is one of the properties of addition so we can know this to be true as well. Identity can be seen as the number zero, as zero added to any number simply returns that number. The final axiom, Invertibility is also satisfied, as every positive integer has an equivalent negative integer which if you add to it, will result in the identity, which as previously mentioned is zero.
 
 \begin{definition} [Representation]
+
 \end{definition}
- 
 
-
-
+Representations are 
 % CORE POINTS
 \subsection{Core Points}
 
@@ -447,7 +446,16 @@ From
 
 \subsection{Solving Integer Programs with CPLEX}
 
-LP file format stuff...
+CPLEX is an optimizer made by IBM. It was designed to optimize and solve both LPs and IPs. It can read in our IPs from LP files which are just text files with the .lp file extension and special formatting. IBM has a guide to formatting the LP files however as we spent lots of time working through errors with the format we will outline some specific formatting details for the IP's we're trying to generate. 
+
+SAGE output uses '*' as the operator for multiplication between variables and coefficients within the constraints. The LP file format does not recognize '*' as a multiplication operator unless it's a monomial within a quadratic constraint. Therefore upon pasting the SAGE output into the LP all the instances of '*' must be replaced with a space. 
+
+Another issue that was encountered was that the SAGE output contained fractions as coefficients which had to be converted to floating point. This loss of accuracy was enough to not correctly construct the polytope, and it was taking trivial amounts of time to realise infeasibility. This problem was solved by scaling the coefficients by the value of their denominator. Upon doing this, we had integer coefficients and therefore lost no accuracy.
+
+Adding the quadratic constraints also requires the manipulation of sage output, this time the fractional coefficient should be relatively easy to represent as floating point values. However, in order to keep the quadratic constraints in the proper LP form, one can't just replace the fractional number with the floating point equivalent. If we concatenate an '*' onto the end of our fractional number we can create a new string. By replacing all instances of the new string we constructed with our converted floating point with a space concatenated to the end we can quickly and easily make functioning quadratic constraints within the LP file format. This step is necessary because the quadratic constraints need the '*' to combine variables to form monomials. This can be seen just above. 
+
+Non-neg
+
 
 \section{Computational Results}
 
