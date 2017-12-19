@@ -28,6 +28,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{amsmath}
+\usepackage{dsfont}
 \usepackage{listings}
 \usepackage{array} % for better arrays (eg matrices) in maths
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
@@ -67,6 +68,7 @@
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\myspan}[1]{\textrm{span} \lbrace {#1} \rbrace}
+\newcommand{\stab}[2]{\textrm{Stab}_{#1}({#2})}
 
 %%% END Article customizations
 
@@ -318,7 +320,83 @@ As stated earlier, this was the primary method used in this project, as aside fr
 % METHOD 2
 \subsubsection{Solving Polynomials}
 
-An alternative method 
+Another method of finding invariant subspaces of a group is to solve a system of quadratic equations. This method scales with number of orbits $O_1, O_2, ... O_k$ of the stabilizer subgroup $Stab_G(1)$ of $G$, rather than the order of the group, so it is more amenable for large groups such as $S_n$ for $n \geq 11$ than the method relying on character decompositions. However, it relies on the group action acting transitively. Fortunately for this project, all the groups we are concerned with are primitive, and therefore transitive by definition, so we won't run into difficulties applying this algorithm. Before moving onto the method, we'll first need to prove a couple lemmas to use as tools.
+
+\begin{lemma}\label{lem:projcomm}
+Let $G \leq S_n$, with $V$ an invariant subspace of $G$. $(gx)|_V = g(x|_V)$ for all $g \in G$ and $x \in \RR^n$.
+\end{lemma}
+
+\begin{proof}
+Let $\RR^n = V \oplus W$. We can therefore decompose a vector $x \in \RR^n$ into a direct sum $x = v \oplus w = v + w$, $v \in V$, $w \in W$. Permutations act linearly, therefore $gx = gv + gw$, and as $V$ and $W$ are invariant subspaces of $G$, $gv \in V$ and $gw \in W$. Therefore $gx = gv \oplus gw$, so $g(x|_V) = gv = (gx)|_V$.
+\end{proof}
+
+\begin{lemma}\label{lem:stabsub}
+Let $G \leq S_n$, with $V$ an invariant subspace of $G$. For all $z \in \ZZ^n$, $\stab{G}{z} \leq \stab{G}{z|_V}$.
+\end{lemma}
+
+\begin{proof}
+Let $g \in \stab{G}{z} = \lbrace g \in G : gz = z \rbrace$. Given that $\RR^n = V \oplus W$, then by Lemma \eqref{lem:projcomm}, $g(z|_V + z|_W) = g(z|_V) + g(z|_W) = (gz)|_V + (gz)|_W = z|_V + z|_W$. Now $(gz)|_V + (gz)|_W = z|_V + z|_W \implies (gz)|_V - z|_V = z|_W - (gz)|_W$, where $(gz)|_V - z|_V \in V$ and $ z|_W - (gz)|_W \in W$. This implies that $(gz)|_V - z|_V \in V \cap W$, which only contains the 0 vector. Therefore $(gz)|_V - z|_V = 0 \implies g(z|_V) = z|_V \implies g \in \stab{G}{z|_V}$ $\forall g \in \stab{G}{z}$, $\therefore \stab{G}{z} \leq \stab{G}{z|_V}$.
+\end{proof}
+
+Let $V \subseteq \RR^n$ be an invariant subspace of a transitive group $G \leq S_n$. Then consider the vector $e^{(1)}|_V$. Because $G$ acts transitively, $G(e^{(1)}|_V) = \myspan{V}$. Therefore if we can compute $e^{(1)}|_V$, we can compute a spanning set for $V$. Since $\stab{G}{e^{(1)}} \leq \stab{G}{e^{(1)}|_V}$ by Lemma \eqref{lem:stabsub}, $e^{(1)}|_V$ is constant under the orbits of $\stab{G}{e^{(1)}}$. Let $O_1, O_2, ..., O_k$ be the set of orbits of $\stab{G}{e^{(1)}}$. Then
+
+\[ e^{(1)}|_V = \sum_{i=1}^{k} \alpha_i \mathds{1}_{O_i}, \]
+
+where $\alpha_i \in \RR$, and $\mathds{1}_{O_i}$ is the characteristic vector of the orbit $O_i$ equal to $\bigoplus_{g \in O_i} ge^{(1)}$. Then let $\lbrace g_1, g_2, ..., g_n \rbrace \subset G$ be a transversal of $\stab{G}{e^{(1)}}$ (meaning that $g_j(e^{(j)}) = e^{(1)}$ for each $g_j$). Then by applying Lemma 5.10 from \cite{rehn}, we get that
+
+\[ \alpha_i = \langle e^{(1)}|_V, e^{(j)} \rangle = \langle e^{(1)}|_V, e^{(j)}|_V \rangle = \langle e^{(1)}|_V, g_j e^{(1)}|_V \rangle = \langle \sum_{i=1}^{k} \alpha_i \mathds{1}_{O_i}, g_j \sum_{i=1}^{k} \alpha_i \mathds{1}_{O_i} \rangle .\]
+
+As there are $k$ $\alpha_i$'s, we get a set of $k$ quadratic equations with $k$ unknowns. By solving these equations for $\alpha_i$ and then substituting the solutions we get back into our first equation we can compute $e^{(1)}|_{V_i}$ for each invariant subspace $V_i$. Then as stated earlier, we only need to compute $G(e^{(1)}|_{V_i})$ and select linear indepedent vectors to find a basis for the corresponding subspace $V_i$.
+
+The code for this algorithm was written using Sage, as it can solve systems of quadractic equations, and make calls to GAP for all the group computations. First, we compute the stabilizer and stabilizer orbits of the group, compute the number of distinct orbits, and build a list of symbolic variables:
+
+\begin{lstlisting}[language=Python, frame=single]
+def invariant_subspaces(G,dim):
+    e_v = [0]*dim
+    stab = gap.Stabilizer(G,1)
+    orbs = gap.Orbits(stab,[1..dim]) 
+    k = len(orbs)
+    a = list(var('a_%d' % (i+1)) for i in range(k))
+\end{lstlisting}
+
+Next, we compute the formula for $e^{(1)}|_V$ symbolically:
+
+\begin{lstlisting}[language=Python, frame=single]
+    for i in range(k):
+        ivec = index_vector(orbs[i+1],dim)
+        for j in range(dim):
+            e_v[j] = e_v[j] + a[i]*ivec[j]
+\end{lstlisting}
+
+Compute the transversal of the stablizer along with the permutation matrices corresponding to each $g_j$ within the transversal:
+
+\begin{lstlisting}[language=Python, frame=single]
+    trans = gap.RightTransversal(G,stab)
+    pmats = [Matrix(gap.PermutationMat(x,dim).sage()) 
+	for x in trans]
+\end{lstlisting}
+
+We then set up our system of equations as an inner product between $e^{(1)}|_V$ and $g_j e^{(1)}|_V$, solve it, and substitute the solutions into our original symbolic $e^{(1)}|_V$ vector, getting a list of projections $e^{(1)}|_{V_i}$ for each invariant subspace $V_i$:
+
+\begin{lstlisting}[language=Python, frame=single]
+    e_v_vec = vector(e_v)
+    eqns = [(a[i] == e_v_vec.inner_product(pmats[i]*e_v_vec)) 
+	for i in range(k)]
+    sols = solve(eqns, a, solution_dict=True)
+    candidates = [[QQ(e.subs(sol)) for e in e_v] 
+	for sol in sols]
+\end{lstlisting}
+
+Then we construct a group of permutation matrices $M$ corresponding to our permutation group $G$, and compute the orbits of $M$ on each projection:
+
+\begin{lstlisting}[language=Python, frame=single]
+    M = gap.Group([gap.PermutationMat(p,dim) 
+	for p in gap.GeneratorsOfGroup(G)])
+    vec_orbs = gap.Orbits(M, candidates)
+    return vec_orbs
+\end{lstlisting}
+
+The only thing that is left to do in this algorithm is compute bases for each of these lists of vectors. Since our other method worked for all the groups we cared about, we primarily used this method for verifying that the results found in each method agreed with one another. However if further work was to be performed, this second algorithm would likely be better to build off of as it should compute results within a reasonable time for many more groups than the first algorithm.
 
 %% CORE POINTS + IPS
 \subsection{Constructing Core Points \& Integer Programs}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.11.17)  19 DEC 2017 04:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.11.17)  19 DEC 2017 07:24
 entering extended mode
 **./cs4999_report.tex
 (cs4999_report.tex
@@ -499,6 +499,9 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
+("F:\Program Files\MiKTeX 2.9\tex\latex\doublestroke\dsfont.sty"
+Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
+)
 ("F:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
 \lst@mode=\count107
 \lst@gtempboxa=\box28
@@ -653,18 +656,18 @@ Package tocloft Info: The document has section divisions on input line 51.
 (cs4999_report.aux)
 \openout1 = `cs4999_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -759,77 +762,85 @@ G,.JBIG2,.JB2,.eps]
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 81.
+LaTeX Font Info:    Try loading font information for U+msa on input line 83.
 
 ("F:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 81.
+LaTeX Font Info:    Try loading font information for U+msb on input line 83.
 
 ("F:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
-LaTeX Warning: Citation `some' on page 1 undefined on input line 104.
+LaTeX Warning: Citation `some' on page 1 undefined on input line 106.
 
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
 
-LaTeX Warning: Citation `rehn' on page 2 undefined on input line 110.
+LaTeX Warning: Citation `rehn' on page 2 undefined on input line 112.
 
 
 LaTeX Warning: Citation `barvinok/blekherman' on page 2 undefined on input line
- 110.
+ 112.
 
 
-LaTeX Warning: Citation `rehn' on page 2 undefined on input line 118.
+LaTeX Warning: Citation `rehn' on page 2 undefined on input line 120.
 
 [2] [3]
 
-LaTeX Warning: Citation `char' on page 4 undefined on input line 161.
+LaTeX Warning: Citation `char' on page 4 undefined on input line 163.
 
 [4]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 188.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 190.
 
  ("F:\Program Files\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 188.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 191.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 190.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 193.
 
 
 ("F:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 191.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 193.
 
-Overfull \hbox (2.2307pt too wide) in paragraph at lines 203--204
+Overfull \hbox (2.2307pt too wide) in paragraph at lines 205--206
 [][][][][][][][][][][][][][][][][] 
  []
 
 [5] [6]
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 343.
 
-LaTeX Warning: Citation `rehn' on page 7 undefined on input line 328.
+ ("F:\Program Files\MiKTeX 2.9\tex\latex\doublestroke\udsrom.fd"
+File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
+)
 
-[7] (cs4999_report.aux)
+LaTeX Warning: Citation `rehn' on page 7 undefined on input line 345.
+
+[7] ("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+) [8]
+
+LaTeX Warning: Citation `rehn' on page 9 undefined on input line 406.
+
+[9] [10] (cs4999_report.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 6952 strings out of 493323
- 96728 string characters out of 3139062
- 187065 words of memory out of 3000000
- 10375 multiletter control sequences out of 15000+200000
- 11520 words of font info for 44 fonts, out of 3000000 for 9000
+ 7203 strings out of 493323
+ 99817 string characters out of 3139062
+ 202060 words of memory out of 3000000
+ 10612 multiletter control sequences out of 15000+200000
+ 12154 words of font info for 48 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,11n,43p,1267b,1247s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,11n,43p,1267b,1249s stack positions out of 5000i,500n,10000p,200000b,50000s
 <F:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><F:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><F:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><F:/Program Files/MiKT
@@ -841,11 +852,14 @@ m/cmr17.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pf
 b><F:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><F:/Prog
 ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><F:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><F:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><F:/Program Files/MiKTeX 2.9/font
-s/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on cs4999_report.pdf (7 pages, 189255 bytes).
+2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><F:/Program Files/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmtt10.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/
+public/doublestroke/dsrom10.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public
+/amsfonts/symbols/msam10.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/symbols/msbm10.pfb>
+Output written on cs4999_report.pdf (10 pages, 223565 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
+ 103 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
