@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.20)  19 DEC 2017 09:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.20)  19 DEC 2017 09:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -765,85 +765,76 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 83.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 10000) in paragraph at lines 101--102
-
- []
-
-[1
+) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation `some' on page 2 undefined on input line 119.
-
-
-LaTeX Warning: Citation `rehn' on page 2 undefined on input line 125.
-
-
-LaTeX Warning: Citation `barvinok/blekherman' on page 2 undefined on input line
- 125.
+LaTeX Warning: Citation `some' on page 2 undefined on input line 121.
 
 [2]
 
-LaTeX Warning: Citation `rehn' on page 3 undefined on input line 133.
+LaTeX Warning: Citation `rehn' on page 3 undefined on input line 127.
 
-[3]
 
-LaTeX Warning: Citation `char' on page 4 undefined on input line 176.
+LaTeX Warning: Citation `barvinok/blekherman' on page 3 undefined on input line
+ 127.
 
-[4]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 203.
+
+LaTeX Warning: Citation `rehn' on page 3 undefined on input line 135.
+
+[3] [4]
+
+LaTeX Warning: Citation `char' on page 5 undefined on input line 178.
+
+[5]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 205.
 
  (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 203.
- [5]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 206.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 205.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 208.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 206.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 208.
 
-Overfull \hbox (2.2307pt too wide) in paragraph at lines 218--219
+Overfull \hbox (2.2307pt too wide) in paragraph at lines 220--221
 [][][][][][][][][][][][][][][][][] 
  []
 
 [6] [7]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 356.
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 358.
 
  (/usr/share/texlive/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
 
-LaTeX Warning: Citation `rehn' on page 8 undefined on input line 358.
+LaTeX Warning: Citation `rehn' on page 8 undefined on input line 360.
 
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[8] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
-) [8] [9]
+) [9]
 
-LaTeX Warning: Citation `rehn' on page 10 undefined on input line 419.
+LaTeX Warning: Citation `rehn' on page 10 undefined on input line 421.
 
-[10] (./cs4999_report.aux)
+[10] [11] (./cs4999_report.aux)
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
  7179 strings out of 494910
  99561 string characters out of 6179835
- 195304 words of memory out of 5000000
+ 197048 words of memory out of 5000000
  10342 multiletter control sequences out of 15000+600000
  12154 words of font info for 48 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 44i,11n,43p,1265b,1639s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,11n,43p,1265b,1249s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -860,10 +851,10 @@ hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/doublestroke/dsrom10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on cs4999_report.pdf (10 pages, 211478 bytes).
+Output written on cs4999_report.pdf (11 pages, 212381 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
+ 108 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

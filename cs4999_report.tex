@@ -98,7 +98,7 @@ This report consists of four main sections. First, definitions of terms from lin
 
 \subsection{Linear and Integer Programming}
 
-Linear programming, or more specifically integer programming played a huge part in the motivation for work which was done. Therefore, in order for the rest of the paper to be fully understood some concepts from linear programming require definition. Linear programming problems occur when one wishes to maximize or minimize a linear function subject to some linear constraints. Observe the following example:\\
+Linear programming, or more specifically integer programming played a huge part in the motivation for work which was done. Therefore, in order for the rest of the paper to be fully understood some concepts from linear programming require definition. Linear programming problems occur when one wishes to maximize or minimize a linear function subject to some linear constraints. Observe the following example:
 
 Find $z_1$ and $z_2$ which maximize the sum $z_1 + z_2$ subject to the following constraints:
 $$z_1 \geq 0$$
@@ -109,7 +109,9 @@ $$3z_1 + z_2 \leq 17$$
 
 As you can see, we have two unknowns, $z_1$ and $z_2$ which are bounded with five constraints. We call the special constraints of the form $z_i \geq 0$ nonnegativity constraints. The other three are known as the main constraints.  The function which is being minimized (or maximized) is known as the objective function and in this case is: $z_1 + z_2$. Any vector which satisfies all the constraints of a given linear program is a feasible solution. If a vector gives the minimum (or maximum) possible value out of all the feasible solutions it is known as the optimal solution or optimum. If a linear program has no feasible solutions, and therefore no optimum it is called infeasible. Linear programs are good because they're efficiently solvable in both theory and practice. 
 
-An integer program in this context, is a linear program where some or all of the variables are restricted to be integers. Integer programs are known to be computationally difficult.
+An integer program in this context, is a linear program where some or all of the variables are restricted to be integers. Integer programs are known to be computationally difficult (NP-Hard as mentioned previously). However the examples which we are running are not only known to be NP-Hard, but also infeasible due to our method of construction of the IPs. We achieved infeasibility by constructing polytopes which we know have integer vertices as the only integer points, then we introduced bounds that severed these vertices, leaving us with an infeasible IP. This means that our optimizer, CPLEX is forced to search every possible point in order to realize that the IP is infeasible. 
+
+Typically, when an IP is infeasible the optimizer always has to check every single part of the IP. However, because of the fact the infeasible programs have symmetry as mentioned in the introduction, we can introduce specially constructed quadratic constraints. These quadratic constraints are less than or equal to some constant $C$, which is currently unknown. As we assume the value of $C$ to be bigger and bigger, the amount of time it takes to determine wheither the program is infeasible gets longer and longer, with the quickest solution being at $C = 0$. This rate isn't monotonic however, and the preliminary results cam be found in the Computational Results section later.
 
 \subsection{Groups and Representations}
 
