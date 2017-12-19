@@ -55,9 +55,13 @@
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem*{remark}{Remark}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem*{example}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\RR}{\mathbb{R}}
@@ -97,23 +101,37 @@ This report consists of four main sections. First, definitions of terms from lin
 % CORE POINTS
 \subsection{Core Points}
 
-In this section, we will be looking at the definition of what a core point is. These are points that were first looked at  by \cite{some}
+In this section, we will be looking at the definition of what a core point is, and how they relate integer programs. These objects were first studied by \cite{some}, in the context of [...].
 
 \begin{definition}[Core Point]
 A core point of a permutation group $G$ is a point $z \in \mathbb{Z}^n$ such that the orbit polytope $\textrm{conv}(Gz)$ contains no interior integer points. In other words, $\textrm{conv}(Gz) \cap \mathbb{Z}^n = Gz$. The set of all core points of $G$ is called the \textbf{core set} and is denoted by $\textrm{core}(G)$.
 \end{definition}
 
+A very important result from \cite{rehn} is that these core points must lie "close to" the invariant subspaces of their group $G$. The proof of this is rather technical, so rather than give the full theorem and proof we will sketch out the general idea behind it. First, we define a function $\mu : \ZZ^n -> \RR$ which maps points $z \in \ZZ^n$ to the minimal distance of a point in the affine hull of $Gz$ from the fixed space $\textrm{Fix}(G)$. We then construct a minimal bounding ellipsoid $E$ around the orbit polytope $\textrm{conv}(Gz)$, where $z \in \textrm{core}(G)$, using results from Theorem 2.2 in \cite{barvinok/blekherman}. We then find a scaled and translated ellipsoid $E'$ constructed from $E$ such that $E' \subseteq \textrm{conv}(Gz)$, and use this to find conditions for when $E'$ (and by extension $\textrm{conv}(Gz)$ contain interior integer points. From this exploration we can find a constant bound $C(G)$ for the projection of $z$ onto any of the invariant subspaces of $G$, such that $z \in \textrm{core}(G) \implies  ||z|_{V_i}|| \leq C(G)$. If $||z|_{V_i}|| \geq C(G)$, then $E' \subseteq \textrm{conv}(Gz)$ will contain an integer point inside of it, and therefore $z$ can not be a core point.
 
+A natural question is what these points have to do with solving integer programs. Before that question can be answered, let us state the precise definition of a symmtery of an integer programming problem. 
+
+\begin{definition}[IP Symmetry]
+A \textbf{symmetry} of an integer program with a feasible region $P \subset \RR^n$ and objective function $f : \ZZ^n \rightarrow \RR$ is a permutation $g \in S_n$ such that $gx \in P$ and $f(x) = f(gx)$ for all $x \in P$. The group of all these permutations is the symmetry group $G \leq S_n$ of the integer program.
+\end{definition}
+
+Now we can state the result connecting these two concepts of core points and integer programs, Theorem 7.3 from \cite{rehn}.
+
+\begin{theorem}
+Let $\min_{x \in C \cap \ZZ^n} f(x)$ be a convex integer optimization problem, with a convex function $f$ and a convex set $C \subseteq \mathbb{R}^n$ and a symmetry group $G$. Then $\min_{x \in C \cap \ZZ^n} f(x) = \min_{x \in C \cap \textrm{core}(G)} f(x)$.
+\end{theorem}
+
+The idea behind the proof of this theorem is that if the optimal solution $x \in C \cap \ZZ^n$ is not a core point, then we can find some integral points inside of $\textrm{conv}(Gx)$. By choosing an $x'$ from within the integer points $\textrm{conv}(Gx) \cap \ZZ^n$ that has minimal norm, we are guaranteed that $x'$ is a core point for $G$. Since $x' \in \textrm{conv}(Gz)$, $x'$ is a convex combination of permutations of $x$, so $x' = tx + (1-t)(gx)$ for some $t \in [0,1], g \in G$. Because $f$ is convex, $f(tx + (1-t)(gx)) \leq tf(x) + (1-t)f(gx) \implies f(x') \leq f(x)$, as $f(x) = f(gx)$. Therefore $x'$ is an optimal solution for the integer program with $x' \in \textrm{core}(G)$.
+
+Due to this theorem, we can find an optimal solution to any integer program with a symmetry by only looking at the core points of the symmetry group. In some cases, there are a finite number of core points, and we can devise algorithms based on enumerating core points and searching for an optimal solution. However in this project we focused on a set of groups containing infinite core points, in which case enumeration of core points won't help us any. Instead, armed with our additional constraints on the norm of the projection of core points on the invariant subspaces of the group, we can restrict the size of the feasible region when searching for solutions to the integer program. This is the extent of the knowledge we will need about core points for this project.
 
 %% METHODS
 \section{Methods \& Algorithms}
 
-In order to restrict the search space for integer programming problems, we will need to have methods to compute the invariant subspaces of a symmetry and then generate corresponding quadratic constraints.
+Now that we know that we can add additional constraints to reduce the size of the feasible region, all we need are algorithms to actually compute all the required data. First, we will examine two methods to construct invariant subspaces of symmetry groups, one method using information from character theory, the second using results about group actions in relation to invariant subspaces. Next, we will look at how we can actually compute a set of core points of group, and use these to construct difficult integer programs to test the effectiveness of this method on. Finally, we will cover how to compute the new quadratic constraints that we can use to solve these problems faster.
 
 % INVARIANT SUBSPACES
 \subsection{Computing Invariant Subspaces}
-
-There are two methods we can use to compute invariants subspaces of symmetry groups. One method relies primarily on the irreducible characters of a group representation, while the other sets up and solves a set of polynomial equations constructed from the orbits of a group.
 
 % METHOD 1
 \subsubsection{Irreducible Characters}
