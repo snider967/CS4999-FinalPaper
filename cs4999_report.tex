@@ -466,7 +466,21 @@ Due to the nature of the LP files we created
 
 \section{Computational Results}
 
-The only computation we had time to finish was the 15-2 group, as expected, the optimizer had a rough time trying to process it. It clocked in at a staggering ~Number. Next we ran it with our second quadratic constraint (Q2) and C value of 1. Third we ran it with our second quadratic constraint (Q2) and C value of 5.Next we ran it with our second quadratic constraint (Q2) and C value of 10.Fifth we ran it with our second quadratic constraint (Q2) and C value of 25. Sixth we ran it with our second quadratic constraint (Q2) and C value of 50. Seventh we ran it with our second quadratic constraint (Q2) and C value of 100. Below results can be viewed in a table.
+The only computation we had time to finish was the 15-2 group, as expected, the optimizer had a rough time trying to process it. It clocked in at a staggering ~Number. Next we ran it with our second quadratic constraint (Q2) and C value of 1. Third we ran it with our second quadratic constraint (Q2) and C value of 5. Next we ran it with our second quadratic constraint (Q2) and C value of 10.Fifth we ran it with our second quadratic constraint (Q2) and C value of 25.  Sixth we ran it with our second quadratic constraint (Q2) and C value of 50. Seventh we ran it with our second quadratic constraint (Q2) and C value of 100. Below results can be viewed in a table. All the results are in seconds. For the sake of reading this table S1Q2C1 represents the 15-2 group, subgroup 1, with the second quadratic constraint which is less than or equal to some C value which is 1. The rest of the names are named according to the same logic.
+
+
+
+\begin{center}
+ \begin{tabular}{||c c c c c c c||} 
+ \hline
+ 15-2s1 & s1q2c1 & s1q2c5 & s1q2c10 & s1q2c25 & s1q2c50 & s1q2c100\\ [1.5ex] 
+ \hline\hline
+ runtime & runtime & runtime & runtime & runtime & runtime & runtime
+ \\\hline
+\end{tabular}
+\end{center}
+
+
 
 \section{Recommendations}
 
@@ -474,7 +488,18 @@ Due to the time constraints of only having a term to work on the project, we did
 
 As stated earlier in the paper, the quadratic constraints are all less than or equal to some unknown constant C. Some ways to improve the experiment would be to prepare more for C than what we used, by doing the whole range from 1 - 100 rather than just specific values you will end up with more accurate data and a smoother plot. Larger sample sizes are just better in general, as they allow you to more accurately observe trends in the data like runtime increase/decrease. Not only should we plot more of the various potential C values, but also plot the effect of changing C values for a couple different groups. Currently we have functional LP files for the 15-2 and 16-10 groups but they both have 2 subgroups and so it ends up being 4 different groups each with 1 file without quadratic constraints and 2 with the quadratic constraints (marked with a Q).
 
+One thing we also didn't do was many repititions of the same trial to accomadate for anomalies or even to get a larger sample size. This would be quite beneficial to the integrity of the experimental results as a certain amount of trials of a single experiment need to be consistently lining up to make a solid argument.   
+
 The construction process could probably be automated without tremendous effort. From raw SAGE output, one would need to write a program which read the output and converted it into LP format considering the LP format standards which can be found here \cite{some}. LP conversion is what occupies a lot of man-hours and it's a tedious repettitve task fit for a computer.
 
 The work we've been doing could potentially have fringe applications in research optimizer technology, in the case that the results indicate that some value of C makes the optimizer realize the problem is infeasible quicker than it does when it runs without the quadratic constraint. Unfortunately, due to time constraints, we only ended up getting minor calculations done, although all of the setup is done and well documented. This should aid any researcher who desires to fully complete the experiment. Also we will include a link to a repository containing our LP files and the SAGE code we used to get to the point we are at now (which will be located in the appendix). Using that repository, and the contents of this document should be sufficient to replicate our starting conditions. 
+
+One thing which could make the whole project a lot easier would be to get the required programs installed on either one or more publicly accessible computers. An issue we encountered was we could get the required programs, but we didn't both have laptops, so we were forced to work somewhat independently. I think having a place to run calculations throughout the work day would be tremendous boon to undergraduates attempting this in the future.
+
+\section{Appendix}
+
+The github repository can be cloned from:\\
+https://github.com/snider967/LPFilesOptimizationFall2017.git\\
+Sage/Gap code produced by Joshua Gunter:
+
 \end{document}
