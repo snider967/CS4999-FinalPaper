@@ -454,8 +454,8 @@ Another issue that was encountered was that the SAGE output contained fractions 
 
 Adding the quadratic constraints also requires the manipulation of sage output, this time the fractional coefficient should be relatively easy to represent as floating point values. However, in order to keep the quadratic constraints in the proper LP form, one can't just replace the fractional number with the floating point equivalent. If we concatenate an '*' onto the end of our fractional number we can create a new string. By replacing all instances of the new string we constructed with our converted floating point with a space concatenated to the end we can quickly and easily make functioning quadratic constraints within the LP file format. This step is necessary because the quadratic constraints need the '*' to combine variables to form monomials. This can be seen just above. 
 
-Non-neg
-
+One of the major hurdles encounted when attempting to construct the infeasible LP files are the implicit non-negativity constraints CPLEX imposes if we do not specify a lower bound.
+We arbitrarily chose the negative equivalent of the upper bound as the lower bound, that way we allow the optimizer to look into the negative numbers as well for integer solutions. Once we fixed this issue as well as all of the above issues, the problem which we had generated took an unreasonable amount of time to solve. Which is exactly what we were trying to accomplish.
 
 \section{Computational Results}
 
@@ -463,6 +463,10 @@ None yet, but just got Ace-net account up, may go to the school ASAP to start ru
 
 \section{Recommendations}
 
-I would recommend...
+Due to the time constraints of only having a term to work on the project, we didn't get to perform as many experiments to see the change (or lack thereof) in runtime when introducing the quadratic constraints as we would've liked to do. Much of the time was spent solving problems in both algorithm and data formatting. Now that we have a reliable method of building these infeasible systems, it would not be very difficult to run more experiments on various different groups. The results presented in this paper are simply preliminary results, however if our work was extended and more experimentation was done by a third party, we may be able to conclusively say wheither the runtimes were improved on or not when the LPs were subjected to the quadratic constraints.
 
+Some ways to improve the experiment would be to prepare more for C than what we used, by doing the whole range from 1 - 100 rather than just specific values you will end up with more accurate data and a smoother plot. Larger sample sizes are just better in general, as they allow you to more accurately observe trends in the data like runtime increase/decrease.
+Not only should we plot more of the various potential C values, but also plot the effect of changing C values for a couple different groups. 
+
+The work we've been doing could have fringe applications in research optimizer technology, in the case that the results indicate that some value of C makes the optimizer realize the problem is infeasible quicker than it does when it runs without the quadratic constraint. Unfortunately, due to time constraints, we only ended up getting minor calculations done, although all of the setup is done and well documented. This should aid any researcher who desires to fully complete the experiment. Also we will include a link to a repository containing our LP files and the SAGE code we used to get to the point we are at now. Using that repository, and the contents of this document should be sufficient to replicate our starting conditions. 
 \end{document}
