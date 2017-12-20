@@ -30,6 +30,9 @@
 \usepackage{amsmath}
 \usepackage{dsfont}
 \usepackage{listings}
+\usepackage{pgfplots,tikz}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.15}
 \usepackage{array} % for better arrays (eg matrices) in maths
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
@@ -94,50 +97,254 @@ In this study, we investigated a method to speed up the solving of a special set
 
 When an IP is symmetric in this way we can find a set of orthogonal subspaces in $\mathbb{R}^n$, at least one of which any optimal solution must lie "close to". We can therefore restrict the search space for the optimum by setting up quadratic bounds, restricting how far away an answer can be from the aforementioned subspaces. Exactly how "close to" one of these subspaces the solution has to be is not yet known. The goal of this project is to experimentally test different possible bounds and discover what the effect of adding these bounds are on the runtime of solving IPs using standard solvers. In general, it is expected that with a tighter bound, the solver should be able to find a solution faster than with a looser bound, as there is less space to search through. By experimentally checking various bounds, we can determine whether or not this strategy would be useful once methods to find an exact bound are discovered.
 
-This report consists of four main sections. First, definitions of terms from linear programming, group theory, and geometry required as background. Second we look at the algorithms and methods used to construct special subspaces and integer programs, and compute the additional quadratic constraints. Third we list some of the computational results found. Finally, we give some comments and recommendations for future work.
+This report consists of four main sections. First are definitions of terms from linear programming, group theory, and geometry required as background. Second we look at the algorithms and methods used to construct special subspaces and integer programs, and compute the additional quadratic constraints. Third we list some of the computational results found. Finally, we give some comments and recommendations for future work.
 
 %% DEFINITIONS
-\section{Definitions}
+\section{Background}
 
 \subsection{Linear and Integer Programming}
 
-Linear programming, or more specifically integer programming played a huge part in the motivation for work which was done. Therefore, in order for the rest of the paper to be fully understood some concepts from linear programming require definition. Linear programming problems occur when one wishes to maximize or minimize a linear function subject to some linear constraints. Observe the following example:
+In order to motivate the discussion in this report, we first need to define what exactly linear and integer programming is.
 
-Find $z_1$ and $z_2$ which maximize the sum $z_1 + z_2$ subject to the following constraints:
-$$z_1 \geq 0$$
-$$z_2 \geq 0$$
-$$2z_1 + 5z_2 \leq 22 $$
-$$z_1 + z_2 \leq 6$$ 
-$$3z_1 + z_2 \leq 17$$
+\begin{definition}[Linear Program]
+A linear programming problem is a mathematical optimization problem of the form
+\begin{align*}
+&\max{} \ c^\intercal x \\
+&\textrm{s.t. } Ax \leq b, \\
+&\textrm{and } x \geq 0
+\end{align*}
 
-As you can see, we have two unknowns, $z_1$ and $z_2$ which are bounded with five constraints. We call the special constraints of the form $z_i \geq 0$ nonnegativity constraints. The other three are known as the main constraints.  The function which is being minimized (or maximized) is known as the objective function and in this case is: $z_1 + z_2$. Any vector which satisfies all the constraints of a given linear program is a feasible solution. If a vector gives the minimum (or maximum) possible value out of all the feasible solutions it is known as the optimal solution or optimum. If a linear program has no feasible solutions, and therefore no optimum it is called infeasible. Linear programs are good because they're efficiently solvable in both theory and practice. 
+Where $c, x, b \in \RR^n, A \in \RR^{m \times n}$. 
+\end{definition}
 
-An integer program in this context, is a linear program where some or all of the variables are restricted to be integers. Integer programs are known to be computationally difficult (NP-Hard as mentioned previously). However the examples which we are running are not only known to be NP-Hard, but also infeasible due to our method of construction of the IPs. We achieved infeasibility by constructing polytopes which we know have integer vertices as the only integer points, then we introduced bounds that severed these vertices, leaving us with an infeasible IP. This means that our optimizer, CPLEX is forced to search every possible point in order to realize that the IP is infeasible. 
+ Described more geometrically, we want to find the maximum value of a linear function $f(x) = c^\intercal x$ over the intersection of the two sets of halfspaces $Ax \leq b$ and $x \geq 0$  in $\RR^n$. The space of possible solutions is known as the feasible region. If the feasible region is the empty set $\emptyset$, then the linear program is denoted as infeasible. There are fast algorithms for solving these problems such as the Simplex Method and Interior Point methods, and many different problems that may be modelled through linear programs. 
+	For a simple example of a linear program, consider the problem
+\begin{align*}
+&\max{ x_1 + x_2 }, \ \textrm{subject to} \\
+&-3x_1 + 5x_2 \leq 8 \\
+&3x_1 + x_2 \leq 10 \\
+&x_1, x_2 \geq 0
+\end{align*}
 
-Typically, when an IP is infeasible the optimizer always has to check every single part of the IP. However, because of the fact the infeasible programs have symmetry as mentioned in the introduction, we can introduce specially constructed quadratic constraints. These quadratic constraints are less than or equal to some constant $C$, which is currently unknown. As we assume the value of $C$ to be bigger and bigger, the amount of time it takes to determine wheither the program is infeasible gets longer and longer, with the quickest solution being at $C = 0$. This rate isn't monotonic however, and the preliminary results can be found in the Computational Results section later.
+Since this problem is only 2 dimensional, we can graph the inequalites and feasible region and find the solution by inspection:
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+ \begin{axis}[
+	thick, smooth,
+	ymin = -1, ymax = 5, xmin = -1, xmax = 5,
+	axis lines = middle,
+	xlabel = $x_1$, ylabel = $x_2$
+	]
+	\addplot [domain=-1:5, name path = one] {3/5*x + 8/5};
+	\addplot [domain=-1:5, name path = two] {-3*x + 10};
+	\path[name path=xaxis] (0,0) -- (5,0);
+	\addplot[blue!20] fill between[of=one and xaxis, soft clip = {domain=0:2.333}];
+	\addplot[blue!20] fill between[of=two and xaxis, soft clip = {domain=2.332:3.3333}];
+ \end{axis}
+\end{tikzpicture}
+\end{figure}
 
-\subsection{Groups and Representations}
-One of our methods of constraint generation uses the idea of characters. Characters are a concept that require a solid understanding of both Groups and Group Representations. In this section we will try and give sufficient background into Group and Representation Theory, however if further knowledge is needed a group theory textbook could be helpful. The textbook we personally used for this section was \cite{some}.
+It can be seen that the point $x_1 = 7/3, x_2 = 3$ lying on the intersection of the two lines will be the optimal solution to this linear program. Note that for any linear program in $n$ dimensions, an optimal solution will satisfy $n$ of the constraints with equality. This is an important property of linear programs, and is what allows solvers to be able to find solutions for them rapidly.
+
+\begin{definition}[Integer Program]
+An integer programming problem is a linear program with the additional constraint that the solutions $x$ must lie within $\ZZ^n$. In other words, it is of the form
+\begin{align*}
+&\max{} \ c^\intercal x \\
+&\textrm{s.t. } Ax \leq b, \\
+& x \geq 0, \\
+& x \in \ZZ^n
+\end{align*}
+\end{definition}
+
+While integer programs may seem to be quite similar to linear programs, they are much harder. In fact, they are NP-hard: solving an integer program can be shown to be equivalent to NP-Hard problems from graph theory, such as minimum vertex cover or the travelling salesman problem. For a general understanding of why this is the case, consider the same linear program as in the previous example with added integrality constraints:
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+ \begin{axis}[
+	thick, smooth,
+	ymin = -1, ymax = 5, xmin = -1, xmax = 5,
+	axis lines = middle,
+	xlabel = $x_1$, ylabel = $x_2$
+	]
+	\addplot [domain=-1:5, name path = one] {3/5*x + 8/5};
+	\addplot [domain=-1:5, name path = two] {-3*x + 10};
+	\foreach \n in {0, ..., 3}{
+		\foreach \m in {0,...,1}{
+			\addplot [mark=*, blue!70] coordinates {(\n,\m)};
+		}
+	}
+	\addplot [mark=*, blue!70] coordinates {(1,2)};
+	\addplot [mark=*, blue!70] coordinates {(2,2)};
+	\path[name path=xaxis] (0,0) -- (5,0);
+ \end{axis}
+\end{tikzpicture}
+\end{figure}
+
+In this case, we end up with two optimal solutions: $x = (2,2)$ and $x = (3,1)$. Note that $(2,2)$ does not lie on the boundary of the feasible region of the original LP. In an integer program,  we have no guarantee of this like we do with a linear program. This property is what makes integer programs hard. The standard solving strategy for an integer programming typically consists of solving the LP relaxation, which is the IP without integrality constraints, and then checking if there is an integer solution. If not, we make two new LPs with additional constraints to cut out the space containing non-integral optimal solutions, and recursively solve this in the same manner.
+
+\subsection{Groups and their Representations}
+
+\subsubsection{Groups}
+
+Group Theory is a fundamental area in the field of abstract algebra which studies algebraic structures with symmetry. As we are studying integer programs that contain underlying symmetry, group theory is naturally heavily involved in the mathematics behind the algorithms implemented. In this section, we aim to give a crash course in the group theory involved. For additional resources on this topic, we recommend texts such as \cite{grouptext} or \cite{algebra}.
 
 \begin{definition} [Group]
-A group $G(S,*)$ is an algrebraic structure which consists of a set of elements $S$ and an operation between the elements $*$ which maps any two elements to a third element within $S$. The group must also satisfy the four group axioms, closure, associativity, identity and invertibility.
+A group is an algebraic structure $(G,*)$ consisting of a set $G$ and an operation $* : G \times G \to G$ satisfying the group axioms. These are as follows:
+\begin{description}
+\item[Closure:] For all $x,y \in G$, $x*y \in G$.
+\item[Associativity:] For all $x,y,z \in G$, $x*(y*z) = (x*y)*z$.
+\item[Identity:] There exists an element $e \in G$ such that $e*g = g*e = g$ for all $g \in G$.
+\item[Inverse:] For all $g \in G$, there exists a $g^{-1} \in G$ such that $g*g^{-1} = g^{-1}*g = e$.
+\end{description}
 \end{definition}
 
-This may seem slightly abstract, however it should become clear with a rather mundane example. Consider the group of all integers under addition. If we use the above notation, we'd have a group $G(Z, +)$ where $Z$ is the set of all integers and $+$ is the addition operation. It immediately becomes clear based on the axioms that this group is legitimate. Closure is satisfied because any integer plus another integer yeilds an integer result. Associativity is one of the properties of addition so we can know this to be true as well. Identity can be seen as the number zero, as zero added to any number simply returns that number. The final axiom, Invertibility is also satisfied, as every positive integer has an equivalent negative integer which if you add to it, will result in the identity, which as previously mentioned is zero. Any of the four assertions are trivial to prove although additional support for these claims can be found here as well \cite{some}. 
+\begin{example}
+Consider the set of integers with addition, $(\ZZ, +)$. Based on the properties of addition, it is easily seen that this is a group. Closure is satisfied because any integer plus another integer yields an integer. Associativity is one of the properties of addition. The number $0$ satisfies the properties of the identity element, as $0 + z = z + 0 = z$ for all integers $z$. The final axiom existence of an inverse is also satisfied, as $z + (-z) = (-z) + z = 0$ for all $z$.
+\end{example}
+
+\begin{example}
+For another basic example, consider $(\mathbb{Q} \setminus \lbrace 0 \rbrace, *)$, the set of rational numbers with 0 removed under the operation of multiplication. The first two axioms hold trivially from the definition of multiplication on rational numbers, the element 1 serves as identity, and every non-zero rational number $q$ has a multiplicative inverse $1/q$. Note that the inverse axiom is what forces us to use $\mathbb{Q} \setminus \lbrace 0 \rbrace$ as the underlying set rather than $\mathbb{Q}$, as 0 has no inverse element.
+\end{example}
+
+\begin{example}
+The most important example of groups in the context of this paper are permutation groups. Let $S_n$ be the set of permutations of $n$ elements, with the operation being composition of functions $\circ$. For any two permutations $\pi, \sigma \in S_n$, $\pi \circ \sigma$ is also a permutation, so $S_n$ is closed. For any three permutations $\pi, \sigma, \gamma \in S_n$, $((\pi \circ \sigma) \circ \gamma)(x) = (\pi \circ \sigma)(\gamma(x)) = \pi (\sigma(\gamma(x))) = \pi((\sigma \circ \gamma)(x)) = (\pi \circ (\sigma \circ \gamma))(x)$, therefore composition of permutations is associative. The identity permutation $e$ which maps every element to itself serves as identity, and for any permutation we can find another permutation reversing it. Therefore $(S_n, \circ)$ is a group.
+\end{example}
+
+In this project, all examples of groups we deal with are permutation groups which are subgroups of $S_n$.
+
+\begin{definition}[Subgroup]
+A subgroup $H$ of a group $G$ is a subset of the elements of $G$ such that the group axioms still hold. We denote this by $H \leq G$.
+\end{definition}
+
+Another important concept required are group actions.
+
+\begin{definition}[Group Action]
+Let $G$ be a group, and $X$ be a set. A group action is a function $\phi : G \times X \to X$, satisfying the two group action axioms:
+\begin{description}
+\item[Identity:] Let $e \in G$ be the identity element of the group. $\phi(e,x) = x$ for all $x \in X$.
+\item[Compatibility:] For all $g, h \in G$, $\phi(gh, x) = \phi(g, \phi(h, x))$ for all $x \in X$.
+\end{description}
+When working with group actions, it is common to write the action of a group on an element of a set as an operation $g \cdot x$ rather than using function notation.
+\end{definition}
+
+A group action may be categorized as being "transitive". In this report, we will only deal with groups that have transitive group actions.
+
+\begin{definition}[Transitive]
+A group $G$ acts transitively on a set $X$ if for all $x,y \in X$, there exists a $g \in G$ such that $g \cdot x = y$.
+\end{definition}
+
+When we consider the action of a group on a set, there are two structures that are of particular interest to us, namely the orbit of an element under a group action and the stabilizer subgroup with respect to an element.
+
+\begin{definition}[Orbit]
+Let $G$ be a group, and let $X$ be a set acted upon by $G$. The orbit of an element $x \in X$ is the set $\lbrace g \cdot x \ | \ g \in G \rbrace$, consisting of elements of $X$ that $x$ can be moved to by elements of $G$. This is a subset of $X$, and is denoted by $G \cdot x$ or $Gx$. The set of all orbits $G \cdot X$ is a partition of $X$.
+\end{definition}
+
+\begin{definition}[Stabilizer]
+Let $G$ be a group. The stabilizer of $G$ with respect to $x \in X$ is defined as the set $\stab{G}{x} = \lbrace x \in X \ | \ gx = x\rbrace$ of elements in $G$ fixing $x$. This is a subgroup of $G$.
+\end{definition}
+
+We can now define the specific subset of permutation groups that we are working with.
+
+\begin{definition}[Primitive Groups]
+Let $G \leq S_n$ be a permutation group acting on a set $X \neq \emptyset$. $G$ is primitive if it acts transitively on $X$ and preserves no non-trivial partition of $X$. This means that for all $x \in X$, the orbit $G \cdot x = \lbrace x \rbrace$ or $G \cdot x = X$.
+\end{definition}
+
+We have now finished defining all group theoretic terms required for the rest of this report.
+
+\subsubsection{Group Representations}
+
+In order to perform computations with groups, we require ways to represent them and how they act numerically. This is where the Representation Theory of groups comes in. Using representation theory, we can transform group computations into linear algebra computations, which computers excel at. We will start off with the basic definition of a representation of a group.
 
 \begin{definition} [Representation]
-Let V be a vector space over the field C of complex numbers.
-Let GL(V) be the group of isomorphisms of V onto itself.
-Let G be a finite group.
-A linear representation of G in V is a homomorphism p from the group G into the group GL(V). In other words, we associate with each element s in G an element p(s) of GL(V) in such a way that we have the equality: $ p(st) = p(s) \cdot p(t)$ for $s, t \in G$, that implies $p(1) = 1$, $p(s^{-1}) = p(s)^{-1}$. When $p$ is given, we say that V is a representation space of G (or simply, a representation of G).
+Let $G$ be a group and $V$ a vector space over a field $F$. A representation of $G$ in $V$ is a homomorphism $\rho : G \to GL(V)$, where $GL(V)$ denotes the group of automorphisms of $V$ (this usually corresponds to the group of invertible $n \times n$ matrices with entries in $F$). In other words, a representation is function preserving the relations between elements of $G$: for all $g, h \in G$, $\rho(gh) = \rho(g)\rho(h)$. This property also implies that $\rho$ preserves identity and inverse, as $\rho(e)\rho(g) = \rho(eg) = \rho(g)$, and $\rho(e) = \rho(gg^{-1}) = \rho(g)\rho(g^{-1}$. When $\rho$ is given, we say that $V$ is a representation space of G (or simply a representation of G).
 \end{definition}
 
-Representations are really only used as a background to characters as far as this experiment is concerned. Please see subsection 3.1.1 for the full details concerning how irreducible characters are used to create these LPs.
+Representations may be either reducible or irreducible. A representation $\rho$ is reducible if there exists a subspace $W$ of $V$ such that $\lbrace 0 \rbrace \neq W \subset V$ which is invariant under the action of $\rho(G)$. That is for all $g \in G$ and $w \in W$, $\rho(g)w \in W$. In this case $W$ is called an invariant subspace of $G$, and we can define a subrepresentation of $\rho$ \ $\rho|_W : G \to GL(W)$ by restricting the action of $\rho$ to $W$:
+
+\[ \rho|_W(g) = \begin{cases}
+	\rho(g) & \textrm{if } \rho(g) \in W \\
+	0 & \textrm{otherwise}
+	\end{cases}
+\]
+
+If $\rho$ does not have any invariant subspaces, then $\rho$ is irreducible. On the other hand, if there is a decomposition of $\rho$ into a direct sum of irreducible subrepresentations $\rho = \rho_1 \oplus \rho_2 \oplus ... \oplus \rho_k$, then $\rho$ is called completely reducible. Due to Maschke's Theorem in representation theory, we know that every representation of finite groups mapping from $G \to GL_n(\mathbb{C})$ is completely reducible (Mashke's Theorem is actually a little more general, but for our purposes all we'll need are representations of groups as complex matrices). These decompositions of representations into subrepresentations correspond decompositions of $V$ into a direct sum
+
+\[ V = V_1 \oplus V_2 \oplus ... \oplus V_k \]
+
+of invariant subspaces. This fact will be incredibly important for much of our work.
+
+\begin{example} 
+Consider the cyclic permutation group $C_3 = \lbrace (), (123), (132) \rbrace$. We can represent the elements of $C_3$ as matrices in $GL_3(\mathbb{C})$ using the representation
+\[ \rho(()) = \begin{bmatrix}
+	1 & 0 & 0 \\
+	0 & 1 & 0 \\
+	0 & 0 & 1
+	\end{bmatrix},
+\rho((123)) = \begin{bmatrix}
+	0 & 0 & 1 \\
+	1 & 0 & 0 \\
+	0 & 1 & 0
+	\end{bmatrix},
+\rho((132)) = \begin{bmatrix}
+	0 & 1 & 0 \\
+	0 & 0 & 1 \\
+	1 & 0 & 0
+	\end{bmatrix}.
+\]
+We can then examine how $G$ permutes the coordinates of vectors in $\mathbb{C}^3$ by performing matrix-vector multiplication with the elements of $\rho(G)$.
+\end{example}
+
+For all group representations $\rho(G) \leq GL_n(F)$, there is a specific special invariant subspace where $G$ not only keeps vectors within the subspace, but also preserves the vectors exactly. We denote this as the fixed space,
+
+\[ \textrm{Fix}(G) = \lbrace x \in F^n \ | \ g \cdot x = x \rbrace \]. 
+
+In the case of transitive groups, $\textrm{Fix}(G) = \myspan{\mathds{1}}$.
+
+\subsection{Convex Geometry}
+
+As the feasible region of a linear program is a convex set, linear programming and convex geometry are closely related. In this section, we will define what exactly it means for a set to be convex, and a convex geometric object that we will be working with frequently.
+
+\begin{definition}[Convexity]
+A set of points $S$ is convex if for any two points $p, q \in S$, the line between $p$ and $q$ is contained in $S$. More formally, for all $p, q \in S$, for all $t \in [0, 1]$, $tp + (1-t)q \in S$.
+\end{definition}
+
+Alternatively, we could also charactize as convex set as being a set containing all convex combinations of any subset of points within the set.
+
+\begin{definition}[Convex Combination]
+A convex combination of a set of points $\lbrace p_1, p_2, ..., p_k \rbrace$ is a linear combination
+
+\[ \sum_{i = 1}^{k} \lambda_i p_i, \quad \textrm{where } \lambda_i \geq 0, \ \sum_{i=1}^{k} \lambda_i = 1. \]
+
+\end{definition}
+
+In this report, we are primarily concerned with a specific type of convex object, namely the orbit polytope of a group.
+
+\begin{definition}[Orbit Polytope]
+Let $G \leq S_n$ be a permutation group, acting on vectors by permuting their entries. The orbit polytope of a point $x \in \RR^n$ is the convex hull of the orbit $Gx$, denoted $\textrm{conv}(Gx)$. In other words, it is the set of all convex combinations of permutations of $x$ by $G$.
+\end{definition}
+
+\begin{example} Consider the symmetric group $S_3$ acting on the point $x = (1, 0, 0) \in \RR^3$. Its orbit is $S_3 x = \lbrace (1, 0, 0), (0, 1, 0), (0, 0, 1) \rbrace$, and its orbit polytope is the convex hull of these three points, which describes a surface in $\RR^3$:
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}
+\addplot3[
+   patch,
+  patch type=triangle
+]  coordinates {
+	(1,0,0)  (0,1,0)  (0,0,1)
+};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+\end{example}
 
 % CORE POINTS
 \subsection{Core Points}
 
-In this section, we will be looking at the definition of what a core point is, and how they relate integer programs. These objects were first studied by \cite{some}, in the context of [...].
+In this section, we will be looking at the definition of what a core point is, and how they relate integer programs. These objects were first studied by \cite{some} while researching the geometrical aspects of symmetric integer programs.
 
 \begin{definition}[Core Point]
 A core point of a permutation group $G$ is a point $z \in \mathbb{Z}^n$ such that the orbit polytope $\textrm{conv}(Gz)$ contains no interior integer points. In other words, $\textrm{conv}(Gz) \cap \mathbb{Z}^n = Gz$. The set of all core points of $G$ is called the \textbf{core set} and is denoted by $\textrm{core}(G)$.
@@ -481,7 +688,7 @@ Then the integer program
 
 \[ \max c^\intercal x \] \[ x \in T_m' \] \[ x \in \ZZ^n \]
 
-for any $c \in \RR^n$ is infeasible with symmetry group $G$.
+for any $c \in \RR^n$ is infeasible with symmetry group $G$. We verified that this method works by comparing results for vertices of a polytope constructed by feeding the columns of $A$ into Sage against the vertices computed by using the facet description $T_m$.
 
 \begin{example}
 Consider the group $G := \code{PrimitiveGroup(15,2)}$. By using the method for invariant subspace decomposition from \ref{charmethod}, we compute bases for the invariant subspace decomposition of $\RR^n$ into $\myspan{\mathds{1}} \oplus V \oplus W$, and find that the matrix of basis vectors for $V$ is
@@ -604,7 +811,7 @@ One thing which could make the whole project a lot easier would be to get the re
 
 The github repository can be cloned from:\\
 https://github.com/snider967/LPFilesOptimizationFall2017.git\\
-Currently it pnly contains the ready 15-2 LP's but more may be added upon request.\\
+Currently it only contains the ready 15-2 LP's but more may be added upon request.\\
 Sage/Gap code produced by Joshua Gunter:
 
 \end{document}
