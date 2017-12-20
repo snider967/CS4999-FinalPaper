@@ -129,7 +129,8 @@ Let G be a finite group.
 A linear representation of G in V is a homomorphism p from the group G into the group GL(V). In other words, we associate with each element s in G an element p(s) of GL(V) in such a way that we have the equality: $ p(st) = p(s) \cdot p(t)$ for $s, t \in G$, that implies $p(1) = 1$, $p(s^{-1}) = p(s)^{-1}$. When $p$ is given, we say that V is a representation space of G (or simply, a representation of G).
 \end{definition}
 
-Representations are really only used as a background to characters as far as this experiment is concerned. Please see subsection 3.1.1 for the full details concerning how irreducible characters are used to create these LPs. 
+Representations are really only used as a background to characters as far as this experiment is concerned. Please see subsection 3.1.1 for the full details concerning how irreducible characters are used to create these LPs.
+
 % CORE POINTS
 \subsection{Core Points}
 
@@ -166,7 +167,7 @@ Now that we know that we can add additional constraints to reduce the size of th
 \subsection{Computing Invariant Subspaces}
 
 % METHOD 1
-\subsubsection{Irreducible Characters}
+\subsubsection{Irreducible Characters} \label{charmethod}
 
 This method was the primary one used during the project, and makes use of results found in character theory. Many formulas dealing with representations of groups can be transformed into formulas involving their characters, which are much easier to work with computationally.
 
@@ -439,7 +440,39 @@ So to find integer programs we can use to test our methods, we'll need to find c
 A point $z \in \ZZ$ has \textbf{globally minimal projection} with respect to a subspace $V \subseteq \mathbb{R}^n$ if $||z|_V|| \leq ||z'||_V||$ for all $z' \in \textrm{aff}(Gz) \cap \mathbb{Z}^n$.
 \end{definition}
 
-So if a point has globally minimal projection onto a subspace, it is the closest point in the affine hull of $Gz$ to that subspace.
+So if a point has globally minimal projection onto a subspace, it is the closest point in the affine hull of $Gz$ to that subspace. With this definition, we can now state some of the results which will give us a method to compute core points. We will not be writing out proofs of the first two lemmas, as the methods used are somewhat technical.
+
+\begin{lemma}[Lemma 5.19, \cite{rehn}] \label{infcplemma}
+Let $G \leq S_n$, with $\RR^n = \myspan{\mathds{1}} \oplus V \oplus W$ a decomposition of $\RR^n$ into invariant subspaces. Let $z^(0) \in \ZZ^n$ have globally minimal projection with respect to $V$, and a core point for $\stab{G}{z^{(0)}|_V}$. Let $w \in W \cap \ZZ^n$ such that $\stab{G}{z^{(0)}|_V} \leq \stab{G}{w}$. Then for all $m \in \ZZ$, the polytope $P_m := \textrm{conv}(G(z^{(0)} + mw))$ contains no interior integer points, and $z^{(0)} + mw$ is therefore a core point for $G$.
+\end{lemma}
+
+This lemma provides us with a way to compute an infinite sequence of core points for all $m \in \ZZ$, as long as we can fulfill a number of conditions. We have to be able to find a decomposition of $\RR^n$ into at least three rational invariant subspaces, which is not possible in many of the primitive groups we looked at. We also need to find an integer point with globally minimal projection onto $V$. This problem, which is equivalent to the closest vector in a lattice problem, or CVP, is a common computational problem with standard algorithms available in computer algebra packages. It is also NP-hard, but fortunately for us from computational experiments it is known that for all primitive groups of degree $n \leq 127$, the vector $e^{(1)}$ has globally minimally projection onto at least one invariant subspace (often for all subspaces). This will allow us to sidestep this issue of solving the CVP when making use of this lemma. 
+
+We also need to find a vector $w \in W$ where the stabilizer subgroup of $G$ with respect to $z^{(0)}|_V$ is a subgroup of the stabilizer subgroup with respect to $w$. This requirement brings us to the next result we'll be making use of:
+
+\begin{lemma}[Corollary 5.36, \cite{rehn}]
+Let $G$ be a primitive group, with $V$ a rational invariant subspace of $G$. If $z^{(0)}$ has globally minimally projection onto $V$, it holds that $\stab{G}{e^{(1)}} = \stab{G}{z^{(0)}|_V}$.
+\end{lemma}
+
+With this addition lemma, we have all the tools required to prove the next result.
+
+\begin{theorem}[Proposition 5.37, \cite{rehn}] \label{cor536}
+Let $G \leq S_n$ be a primitive permutation group, and let $V$ be one of its rational invariant subspaces. If $e^{(1)}$ has globally minimal projection onto $V$, then there are infinitely many core points $z$ with $\langle z, \mathds{1} \rangle = 1$.
+\end{theorem}
+
+\begin{proof}
+Let $G \leq S_n$ be primitive, with $\RR^n = \myspan{\mathds{1}} \oplus V \oplus W$ a decomposition into invariant subspaces. Since $e^{(1)}$ has globally minimal projection onto $V$, by Lemma \eqref{cor536}, $\stab{G}{e^{(1)}|_V} = \stab{G}{e^{(1)}}$, and by Lemma \eqref{lem:stabsub} $\stab{G}{e^{(1)}} \leq \stab{G}{e^{(1)}|_W}$, so $\stab{G}{e^{(1)}|_V} \leq \stab{G}{e^{(1)}|_W}$. $G$ is primitive and therefore by definition transitive, so the projections $e^{(1)}|_V$ and $e^{(1)}|_W$ span $V$ and $W$ respectively. Therefore both of these vectors must be non-zero. By finding a suitable multiplier $k \in \ZZ$, we can construct $w := ke^{(1)}|_W$ such that $w \in \ZZ^n \cap W$. Then for all $m \in \ZZ$, the vector $e^{(1)} + mw$ satisfies all the requirements of Lemma \eqref{infcplemma}, and is therefore a core point of $G$.
+\end{proof}
+
+This gives us a very simple method to compute core points of a group: we just compute the projection of $e^{(1)}$ onto some invariant subspace $W$, select an appropriate multiplier so that $ke^{(1)}|_W \in \ZZ^n$, multiply that by any positive integer $m$, and then add $e^{(1)}$. Now the only question remaining is how to go from some core point to an (infeasible) integer program.\\
+
+Let $z_m := e^{(1)} + mw$, $z_m \in \ZZ$ be core point constructed using the previously stated method, and let $A$ be the matrix with column entries $Gz_m$. Then each column of $A$ is a vertex of the orbit polytope $T_m := \textrm{conv}(Gz_m)$. From this, we can describe $T_m$ as the intersection of the polyhedral cone $\textrm{cone}(Gz_m)$ and the hyperplane $\langle x,\mathds{1} \rangle = \langle z_m, \mathds{1} \rangle$. The inequality description for this is
+
+\[ T_m = \lbrace A^{-1}x \geq 0, \langle x,\mathds{1} \rangle = \langle z_m, \mathds{1} \rangle \rbrace .\]
+
+$T_m$ has no interior integer points, as it is the orbit polytope of a core point, so if we can find a way to "cut off" each of the vertices $gz_m$ for $g \in G$, the integer program with the corresponding feasible region will be infeasible. Due to our method of constructing $z_m$, it contains a unique maximal coordinate $M := \max \lbrace {(z_m)_i} \rbrace$. Therefore the bounds $x_i \leq M-1$ for each $x_i$ can be used to cut off the integer vertices, and get an inequality desciption of $T_m' := T_m \setminus Gz_m$:
+
+\[ T_m' = \lbrace A^{-1}x \geq 0, \langle x,\mathds{1} \rangle = \langle z_m, \mathds{1} \rangle, x_i \leq M-1 \rbrace .\]
 
 % QUADRATICS
 
@@ -455,7 +488,7 @@ SAGE output uses '*' as the operator for multiplication between variables and co
 
 Another issue that was encountered was that the SAGE output contained fractions as coefficients which had to be converted to floating point. This loss of accuracy was enough to not correctly construct the polytope, and it was taking trivial amounts of time to realise infeasibility. This problem was solved by scaling the coefficients by the value of their denominator. Upon doing this, we had integer coefficients and therefore lost no accuracy.
 
-Adding the quadratic constraints also requires the manipulation of sage output, this time the fractional coefficient should be relatively easy to represent as floating point values. However, in order to keep the quadratic constraints in the proper LP form, one can't just replace the fractional number with the floating point equivalent. If we concatenate an '*' onto the end of our fractional number we can create a new string. By replacing all instances of the new string we constructed with our converted floating point with a space concatenated to the end we can quickly and easily make functioning quadratic constraints within the LP file format. This step is necessary because the quadratic constraints need the '*' to combine variables to form monomials. This can be seen just above. 
+Adding the quadratic constraints also requires the manipulation of SAGE output, this time the fractional coefficient should be relatively easy to represent as floating point values. However, in order to keep the quadratic constraints in the proper LP form, one can't just replace the fractional number with the floating point equivalent. If we concatenate an '*' onto the end of our fractional number we can create a new string. By replacing all instances of the new string we constructed with our converted floating point with a space concatenated to the end we can quickly and easily make functioning quadratic constraints within the LP file format. This step is necessary because the quadratic constraints need the '*' to combine variables to form monomials. This can be seen just above. 
 
 One of the major hurdles encounted when attempting to construct the infeasible LP files are the implicit non-negativity constraints CPLEX imposes if we do not specify a lower bound.
 We arbitrarily chose the negative equivalent of the upper bound as the lower bound, that way we allow the optimizer to look into the negative numbers as well for integer solutions. Once we fixed this issue as well as all of the above issues, the problem which we had generated took an unreasonable amount of time to solve. Which is exactly what we were trying to accomplish.

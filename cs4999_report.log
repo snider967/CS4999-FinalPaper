@@ -1,14 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.20)  19 DEC 2017 18:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.12.19)  19 DEC 2017 23:11
 entering extended mode
- restricted \write18 enabled.
- %&-line parsing enabled.
-**cs4999_report.tex
-(./cs4999_report.tex
-LaTeX2e <2016/02/01>
-Babel <3.9q> and hyphenation patterns for 5 language(s) loaded.
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+**./cs4999_report.tex
+(cs4999_report.tex
+LaTeX2e <2017-04-15>
+Babel <3.15> and hyphenation patterns for 75 language(s) loaded.
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\article.cls"
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\size11.clo"
 File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -23,20 +21,20 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\inputenc.sty"
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\utf8.def"
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu
-File: t1enc.dfu 2015/12/03 v1.1r UTF-8 support for inputenc
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+File: t1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A0 (decimal 160)
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -248,11 +246,17 @@ File: t1enc.dfu 2015/12/03 v1.1r UTF-8 support for inputenc
    defining Unicode char U+0219 (decimal 537)
    defining Unicode char U+021A (decimal 538)
    defining Unicode char U+021B (decimal 539)
-   defining Unicode char U+01E02 (decimal 7682)
-   defining Unicode char U+01E03 (decimal 7683)
+   defining Unicode char U+0232 (decimal 562)
+   defining Unicode char U+0233 (decimal 563)
+   defining Unicode char U+1E02 (decimal 7682)
+   defining Unicode char U+1E03 (decimal 7683)
    defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2010 (decimal 8208)
+   defining Unicode char U+2011 (decimal 8209)
+   defining Unicode char U+2012 (decimal 8210)
    defining Unicode char U+2013 (decimal 8211)
    defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2015 (decimal 8213)
    defining Unicode char U+2018 (decimal 8216)
    defining Unicode char U+2019 (decimal 8217)
    defining Unicode char U+201A (decimal 8218)
@@ -264,12 +268,14 @@ File: t1enc.dfu 2015/12/03 v1.1r UTF-8 support for inputenc
    defining Unicode char U+2039 (decimal 8249)
    defining Unicode char U+203A (decimal 8250)
    defining Unicode char U+2423 (decimal 9251)
+   defining Unicode char U+1E20 (decimal 7712)
+   defining Unicode char U+1E21 (decimal 7713)
 )
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu
-File: ot1enc.dfu 2015/12/03 v1.1r UTF-8 support for inputenc
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+File: ot1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A0 (decimal 160)
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -309,8 +315,8 @@ File: ot1enc.dfu 2015/12/03 v1.1r UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu
-File: omsenc.dfu 2015/12/03 v1.1r UTF-8 support for inputenc
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+File: omsenc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
    defining Unicode char U+00B7 (decimal 183)
@@ -333,22 +339,26 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\geometry\geometry.s
+ty"
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\keyval.sty
+"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.st
+y"
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 )
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
-Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.s
+ty"
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.s
+ty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count87
@@ -363,36 +373,35 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layouthoffset=\dimen109
 \Gm@layoutvoffset=\dimen110
 \Gm@dimlist=\toks17
-)
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\geometry\geometry.c
+fg"))
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphicx.s
+ty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphics.s
+ty"
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg\graphi
+cs.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 95.
+Package graphics Info: Driver file: pdftex.def on input line 99.
 
-(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count90
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-def\pdftex
+.def"
+File: pdftex.def 2017/06/24 v1.0g Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen111
 \Gin@req@width=\dimen112
 )
-(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\booktabs\booktabs.s
+ty"
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \heavyrulewidth=\dimen113
 \lightrulewidth=\dimen114
@@ -404,18 +413,20 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \cmidrulesep=\dimen120
 \cmidrulekern=\dimen121
 \defaultaddspace=\dimen122
-\@cmidla=\count91
-\@cmidlb=\count92
+\@cmidla=\count90
+\@cmidlb=\count91
 \@aboverulesep=\dimen123
 \@belowrulesep=\dimen124
-\@thisruleclass=\count93
-\@lastruleclass=\count94
+\@thisruleclass=\count92
+\@lastruleclass=\count93
 \@thisrulewidth=\dimen125
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\amssymb.st
+y"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.s
+ty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks18
 \symAMSa=\mathgroup4
@@ -423,7 +434,7 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amscls\amsthm.sty"
 Package: amsthm 2015/03/04 v2.20.2
 \thm@style=\toks19
 \thm@bodyfont=\toks20
@@ -434,51 +445,52 @@ Package: amsthm 2015/03/04 v2.20.2
 \thm@postskip=\skip44
 \thm@headsep=\skip45
 \dth@everypar=\toks24
-)
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2016/03/03 v2.15a AMS math features
+) ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsmath.s
+ty"
+Package: amsmath 2017/09/02 v2.17a AMS math features
 \@mathmargin=\skip46
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amstext.sty
+"
 Package: amstext 2000/06/29 v2.01 AMS text
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+ ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty
+"
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks25
 \ex@=\dimen126
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen127
+) ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsopn.st
+y"
+Package: amsopn 2016/03/08 v2.02 operator names
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
-)
-\inf@bad=\count95
-LaTeX Info: Redefining \frac on input line 199.
-\uproot@=\count96
-\leftroot@=\count97
-LaTeX Info: Redefining \overline on input line 297.
-\classnum@=\count98
-\DOTSCASE@=\count99
-LaTeX Info: Redefining \ldots on input line 394.
-LaTeX Info: Redefining \dots on input line 397.
-LaTeX Info: Redefining \cdots on input line 518.
+\inf@bad=\count94
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count95
+\leftroot@=\count96
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count97
+\DOTSCASE@=\count98
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen128
-LaTeX Font Info:    Redeclaring font encoding OML on input line 630.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
-\macc@depth=\count100
-\c@MaxMatrixCols=\count101
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count99
+\c@MaxMatrixCols=\count100
 \dotsspace@=\muskip10
-\c@parentequation=\count102
-\dspbrk@lvl=\count103
+\c@parentequation=\count101
+\dspbrk@lvl=\count102
 \tag@help=\toks26
-\row@=\count104
-\column@=\count105
-\maxfields@=\count106
+\row@=\count103
+\column@=\count104
+\maxfields@=\count105
 \andhelp@=\toks27
 \eqnshift@=\dimen129
 \alignsep@=\dimen130
@@ -490,67 +502,74 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
 \multlinegap=\skip47
 \multlinetaggap=\skip48
 \mathdisplay@stack=\toks29
-LaTeX Info: Redefining \[ on input line 2735.
-LaTeX Info: Redefining \] on input line 2736.
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/doublestroke/dsfont.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\doublestroke\dsfont
+.sty"
 Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
 )
-(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count107
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\listings.s
+ty"
+\lst@mode=\count106
 \lst@gtempboxa=\box28
 \lst@token=\toks30
-\lst@length=\count108
+\lst@length=\count107
 \lst@currlwidth=\dimen135
-\lst@column=\count109
-\lst@pos=\count110
+\lst@column=\count108
+\lst@pos=\count109
 \lst@lostspace=\dimen136
 \lst@width=\dimen137
-\lst@newlines=\count111
-\lst@lineno=\count112
+\lst@newlines=\count110
+\lst@lineno=\count111
 \lst@maxwidth=\dimen138
 
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\lstmisc.st
+y"
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count113
-\lst@skipnumbers=\count114
+\c@lstnumber=\count112
+\lst@skipnumbers=\count113
 \lst@framebox=\box29
 )
-(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\listings.c
+fg"
 File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
-(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
-Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \col@sep=\dimen139
 \extrarowheight=\dimen140
 \NC@list=\toks31
 \extratabsurround=\skip49
 \backup@length=\skip50
 )
-(/usr/share/texlive/texmf-dist/tex/latex/paralist/paralist.sty
-Package: paralist 2015/12/30 v2.5 Extended list environments
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\paralist\paralist.s
+ty"
+Package: paralist 2017/01/22 v2.7 Extended list environments
 \pltopsep=\skip51
 \plpartopsep=\skip52
 \plitemsep=\skip53
 \plparsep=\skip54
 \pl@lab=\toks32
 )
-(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\verbatim.sty"
 Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks33
 \verbatim@line=\toks34
 \verbatim@in@stream=\read1
-)
-(/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
+) ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\subfig\subfig.sty
+"
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\caption.sty
+"
 Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\caption3.st
+y"
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 67.
 \captionmargin=\dimen141
 \captionmargin@=\dimen142
@@ -560,51 +579,59 @@ Package caption3 Info: TeX engine: e-TeX on input line 67.
 \caption@parindent=\dimen146
 \caption@hangindent=\dimen147
 )
-\c@ContinuedFloat=\count115
+\c@ContinuedFloat=\count114
 Package caption Info: listings package is loaded.
 )
-\c@KVtest=\count116
+\c@KVtest=\count115
 \sf@farskip=\skip55
 \sf@captopadj=\dimen148
 \sf@capskip=\skip56
 \sf@nearskip=\skip57
-\c@subfigure=\count117
-\c@subfigure@save=\count118
-\c@lofdepth=\count119
-\c@subtable=\count120
-\c@subtable@save=\count121
-\c@lotdepth=\count122
+\c@subfigure=\count116
+\c@subfigure@save=\count117
+\c@lofdepth=\count118
+\c@subtable=\count119
+\c@subtable@save=\count120
+\c@lotdepth=\count121
 \sf@top=\skip58
 \sf@bottom=\skip59
 )
-(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
-\fancy@headwidth=\skip60
-\f@ncyO@elh=\skip61
-\f@ncyO@erh=\skip62
-\f@ncyO@olh=\skip63
-\f@ncyO@orh=\skip64
-\f@ncyO@elf=\skip65
-\f@ncyO@erf=\skip66
-\f@ncyO@olf=\skip67
-\f@ncyO@orf=\skip68
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.s
+ty"
+Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip60
+\f@nch@O@elh=\skip61
+\f@nch@O@erh=\skip62
+\f@nch@O@olh=\skip63
+\f@nch@O@orh=\skip64
+\f@nch@O@elf=\skip65
+\f@nch@O@erf=\skip66
+\f@nch@O@olf=\skip67
+\f@nch@O@orf=\skip68
 )
-(/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
-Package: relsize 2013/03/29 ver 4.1
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ltxmisc\relsize.sty
+"
+Package: relsize 2003/07/04 ver 3.1
 )
-(/usr/share/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\sectsty\sectsty.sty
+"
 Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
 les
 )
-(/usr/share/texlive/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tocbibind\tocbibind
+.sty"
 Package: tocbibind 2010/10/13 v1.5k extra ToC listings
 Package tocbibind Info: The document has section divisions on input line 50.
 
 
 Package tocbibind Note: Using section or other style headings.
 
-) (/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
-Package: tocloft 2013/05/02 v2.3f parameterised ToC, etc., typesetting
-Package tocloft Info: The document has section divisions on input line 44.
+)
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tocloft\tocloft.sty
+"
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has section divisions on input line 51.
 \cftparskip=\skip69
 \cftbeforetoctitleskip=\skip70
 \cftaftertoctitleskip=\skip71
@@ -643,9 +670,8 @@ Package tocloft Info: The document has section divisions on input line 44.
 \cftsubtabindent=\skip104
 \cftsubtabnumwidth=\skip105
 )
-\c@theorem=\count123
-
-(./cs4999_report.aux)
+\c@theorem=\count122
+ (cs4999_report.aux)
 \openout1 = `cs4999_report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
@@ -695,79 +721,97 @@ LaTeX Font Info:    ... okay on input line 82.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mki
+i"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count124
+\scratchcounter=\count123
 \scratchdimen=\dimen149
 \scratchbox=\box30
-\nofMPsegments=\count125
-\nofMParguments=\count126
+\nofMPsegments=\count124
+\nofMParguments=\count125
 \everyMPshowfont=\toks35
-\MPscratchCnt=\count127
+\MPscratchCnt=\count126
 \MPscratchDim=\dimen150
-\MPnumerator=\count128
-\makeMPintoPDFobject=\count129
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
 \everyMPtoPDFconversion=\toks36
-) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-b
+ase.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\infwarer
+r.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty
+"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\kvdefine
+keys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.
+sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.
+sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\kvsetkey
+s.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\etexcmds
+.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifluatex
+.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdftexcm
+ds.sty"
+Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-\c@lstlisting=\count130
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+\c@lstlisting=\count129
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Try loading font information for U+msa on input line 83.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 83.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+[1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+{C:/Users/Josh/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 
 LaTeX Warning: Citation `some' on page 2 undefined on input line 117.
 
@@ -776,97 +820,118 @@ LaTeX Warning: Citation `some' on page 2 undefined on input line 117.
 LaTeX Warning: Citation `some' on page 3 undefined on input line 123.
 
 
-LaTeX Warning: Citation `some' on page 3 undefined on input line 136.
+LaTeX Warning: Citation `some' on page 3 undefined on input line 137.
 
 
-LaTeX Warning: Citation `rehn' on page 3 undefined on input line 142.
+LaTeX Warning: Citation `rehn' on page 3 undefined on input line 143.
 
 
 LaTeX Warning: Citation `barvinok/blekherman' on page 3 undefined on input line
- 142.
+ 143.
 
 [3]
 
-LaTeX Warning: Citation `rehn' on page 4 undefined on input line 150.
+LaTeX Warning: Citation `rehn' on page 4 undefined on input line 151.
 
 [4]
 
-LaTeX Warning: Citation `char' on page 5 undefined on input line 193.
+LaTeX Warning: Citation `char' on page 5 undefined on input line 194.
 
 [5]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 220.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 221.
 
- (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+ ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 220.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 221.
  [6]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 223.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 224.
 
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+ ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 223.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 224.
 
-Overfull \hbox (2.2307pt too wide) in paragraph at lines 235--236
+Overfull \hbox (2.2307pt too wide) in paragraph at lines 236--237
 [][][][][][][][][][][][][][][][][] 
  []
 
 [7] [8]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 373.
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 374.
 
- (/usr/share/texlive/texmf-dist/tex/latex/doublestroke/Udsrom.fd
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\doublestroke\udsrom
+.fd"
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
 
-LaTeX Warning: Citation `rehn' on page 9 undefined on input line 375.
+LaTeX Warning: Citation `rehn' on page 9 undefined on input line 376.
 
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+
+("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\lstlang1.s
+ty"
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 ) [9] [10]
 
-LaTeX Warning: Citation `rehn' on page 11 undefined on input line 436.
+LaTeX Warning: Citation `rehn' on page 11 undefined on input line 437.
 
-[11] [12]
 
-LaTeX Warning: Citation `some' on page 13 undefined on input line 493.
+LaTeX Warning: Citation `rehn' on page 11 undefined on input line 445.
 
-[13] [14] (./cs4999_report.aux)
+
+LaTeX Warning: Citation `rehn' on page 11 undefined on input line 453.
+
+[11]
+
+LaTeX Warning: Citation `rehn' on page 12 undefined on input line 459.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 467--468
+
+ []
+
+[12] [13]
+
+LaTeX Warning: Citation `some' on page 14 undefined on input line 526.
+
+[14] [15] (cs4999_report.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 7179 strings out of 494910
- 99561 string characters out of 6179835
- 195304 words of memory out of 5000000
- 10342 multiletter control sequences out of 15000+600000
- 12154 words of font info for 48 fonts, out of 8000000 for 9000
- 36 hyphenation exceptions out of 8191
- 44i,11n,43p,1265b,1639s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/doublestroke/dsrom10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on cs4999_report.pdf (14 pages, 225001 bytes).
+ 7153 strings out of 493312
+ 102113 string characters out of 3130261
+ 196661 words of memory out of 3000000
+ 10571 multiletter control sequences out of 15000+200000
+ 12154 words of font info for 48 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 44i,11n,43p,1267b,1637s stack positions out of 5000i,500n,10000p,200000b,50000s
+<E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmbx10.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmex10.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmmi10.pfb><E:/Users/Josh/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><E:/Users/Josh/AppData/Local/P
+rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><E:/Users/Josh/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><E:/User
+s/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.p
+fb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr17.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr6.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmr8.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><E:/Users/Josh/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><E:/Users/Josh/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><E:/Users/
+Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pf
+b><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/doublestr
+oke/dsrom10.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/symbols/msam10.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on cs4999_report.pdf (15 pages, 248030 bytes).
 PDF statistics:
- 118 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
+ 119 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
