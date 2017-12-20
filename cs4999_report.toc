@@ -8,8 +8,8 @@
 \contentsline {subsubsection}{\numberline {3.1.1}Irreducible Characters}{6}
 \contentsline {subsubsection}{\numberline {3.1.2}Solving Polynomials}{9}
 \contentsline {subsection}{\numberline {3.2}Constructing Core Points \& Integer Programs}{11}
-\contentsline {subsection}{\numberline {3.3}Quadratic Constraints}{13}
-\contentsline {subsection}{\numberline {3.4}Solving Integer Programs with CPLEX}{14}
-\contentsline {section}{\numberline {4}Computational Results}{15}
-\contentsline {section}{\numberline {5}Recommendations}{15}
-\contentsline {section}{\numberline {6}Appendix}{16}
+\contentsline {subsection}{\numberline {3.3}Quadratic Constraints}{15}
+\contentsline {subsection}{\numberline {3.4}Solving Integer Programs with CPLEX}{15}
+\contentsline {section}{\numberline {4}Computational Results}{16}
+\contentsline {section}{\numberline {5}Recommendations}{17}
+\contentsline {section}{\numberline {6}Appendix}{18}

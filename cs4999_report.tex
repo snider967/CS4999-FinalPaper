@@ -80,6 +80,7 @@
          % otherwise the current date is printed 
 
 \begin{document}
+
 \maketitle
 
 \tableofcontents
@@ -152,7 +153,7 @@ A \textbf{symmetry} of an integer program with a feasible region $P \subset \RR^
 
 Now we can state the result connecting these two concepts of core points and integer programs, Theorem 7.3 from \cite{rehn}.
 
-\begin{theorem}
+\begin{theorem} \label{cpclose}
 Let $\min_{x \in C \cap \ZZ^n} f(x)$ be a convex integer optimization problem, with a convex function $f$ and a convex set $C \subseteq \mathbb{R}^n$ and a symmetry group $G$. Then $\min_{x \in C \cap \ZZ^n} f(x) = \min_{x \in C \cap \textrm{core}(G)} f(x)$.
 \end{theorem}
 
@@ -468,13 +469,13 @@ Let $G \leq S_n$ be primitive, with $\RR^n = \myspan{\mathds{1}} \oplus V \oplus
 
 This gives us a very simple method to compute core points of a group: we just compute the projection of $e^{(1)}$ onto some invariant subspace $W$, select an appropriate multiplier so that $ke^{(1)}|_W \in \ZZ^n$, multiply that by any positive integer $m$, and then add $e^{(1)}$. Now the only question remaining is how to go from some core point to an (infeasible) integer program.\\
 
-Let $z_m := e^{(1)} + mw$, $z_m \in \ZZ$ be core point constructed using the previously stated method, and let $A$ be the matrix with column entries $Gz_m$. Then each column of $A$ is a vertex of the orbit polytope $T_m := \textrm{conv}(Gz_m)$. From this, we can describe $T_m$ as the intersection of the polyhedral cone $\textrm{cone}(Gz_m)$ and the hyperplane $\langle x,\mathds{1} \rangle = \langle z_m, \mathds{1} \rangle$. The inequality description for this is
+Let $z_m := e^{(1)} + mw$, $z_m \in \ZZ$ be core point constructed using the previously stated method, and let $A$ be the matrix with column entries $Gz_m$. Then each column of $A$ is a vertex of the orbit polytope $T_m := \textrm{conv}(Gz_m)$. From this, we can describe $T_m$ as the intersection of the polyhedral cone $\textrm{cone}(Gz_m)$ and the hyperplane $\langle x,\mathds{1} \rangle = \langle z_m, \mathds{1} \rangle = 1$. The inequality description for this is
 
-\[ T_m = \lbrace A^{-1}x \geq 0, \langle x,\mathds{1} \rangle = \langle z_m, \mathds{1} \rangle \rbrace .\]
+\[ T_m = \lbrace A^{-1}x \geq 0, \langle x,\mathds{1} \rangle = 1 \rbrace .\]
 
 $T_m$ has no interior integer points, as it is the orbit polytope of a core point, so if we can find a way to "cut off" each of the vertices $gz_m$ for $g \in G$, the integer program with the corresponding feasible region will be infeasible. Due to our method of constructing $z_m$, it contains a unique maximal coordinate $M := \max \lbrace {(z_m)_i} \rbrace$. Therefore the bounds $x_i \leq M-1$ for each $x_i$ can be used to cut off the integer vertices, and get an inequality desciption of $T_m' := T_m \setminus Gz_m$:
 
-\[ T_m' = \lbrace A^{-1}x \geq 0, \langle x,\mathds{1} \rangle = \langle z_m, \mathds{1} \rangle, x_i \leq M-1 \rbrace .\]
+\[ T_m' = \lbrace A^{-1}x \geq 0, \langle x,\mathds{1} \rangle = 1, x_i \leq M-1 \rbrace .\]
 
 Then the integer program 
 
@@ -482,11 +483,73 @@ Then the integer program
 
 for any $c \in \RR^n$ is infeasible with symmetry group $G$.
 
+\begin{example}
+Consider the group $G := \code{PrimitiveGroup(15,2)}$. By using the method for invariant subspace decomposition from \ref{charmethod}, we compute bases for the invariant subspace decomposition of $\RR^n$ into $\myspan{\mathds{1}} \oplus V \oplus W$, and find that the matrix of basis vectors for $V$ is
+
+\[ B = 
+\begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\
+-1/2 & 1 & 0 & 0 & 0 \\
+-1/2 & -1 & 0 & 0 & 0 \\
+-1/2 & 0 & 1 & 0 & 0 \\
+-1/2 & 0 & -1 & 0 & 0 \\
+-1/2 & 0 & 0 & 1 & 0 \\
+-1/2 & 0 & 0 & -1 & 0  \\
+1/4 &-1/2 &-1/2 &-1/2 & 1 \\
+1/4 &-1/2 &-1/2 &-1/2 & -1 \\
+1/4 &-1/2 & 1/2 & 1/2 & -1 \\
+1/4 &-1/2 & 1/2 & 1/2 & 1 \\
+1/4 & 1/2 &-1/2 & 1/2 & -1 \\
+1/4 & 1/2 &-1/2 & 1/2 & 1 \\
+1/4 & 1/2 & 1/2 &-1/2 & -1 \\
+1/4 & 1/2 & 1/2 &-1/2 & 1 \\
+\end{bmatrix} \]
+
+It is a basic result from linear algebra that the projection matrix $P : \RR^n \to V$ can be computed using the formula 
+\[ P = B(B^\intercal B)^{-1} B^\intercal .\]
+
+So using whatever tool is most convienent, we can find $P$, and then solve 
+
+\[
+e^{(1)}|_V = Pe^{(1)} = \left( \frac{1}{3} , -\frac{1}{6} , -\frac{1}{6} , -\frac{1}{6} , -\frac{1}{6} , -\frac{1}{6} , -\frac{1}{6} , \frac{1}{12} , \frac{1}{12} , \frac{1}{12} , \frac{1}{12} , \frac{1}{12} , \frac{1}{12} , \frac{1}{12} , \frac{1}{12} \right) ^\intercal
+\]
+
+We can see by inspection that to make this vector integral, we need to multiply it by 12. So by choosing $k = 12$, we find that
+
+\[ z_m = e^{(1)} + m(4, -2, -2, -2, -2, -2, -2, 1, 1, 1, 1, 1, 1, 1, 1)^\intercal \]
+
+is a core point for all $m \in \ZZ$. Let's (arbitrarily) choose m = 57. This gives us the core point
+
+\[ z_{57} = (229, -114, -114, -114, -114, -114, -114, 57, 57, 57, 57, 57, 57, 57, 57)^\intercal ,\]
+
+Now to construct $T_{57}$, we need to compute the matrix $A$ containing the vertices of $\textrm{conv}(Gz_{57})$. This can be easily be done in Sage by using the class \code{IntegerVectorsMod\ PermutationGroup} (assuming our core point is stored in the variable \code{core\char`_point}:
+
+\begin{lstlisting}[language = Python, frame = single]
+I = IntegerVectorsModPermutationGroup(G)
+orbits = list(I.orbits(core_point))
+A = matrix(QQ, map(list, orbits)).transpose()
+\end{lstlisting}
+
+Then we can compute $A^{-1}$ with \code{A.inverse()} to find the matrix of coefficients for the linear inequalities describing $\textrm{cone}(Gz_{57})$. We then just need to add the hyperplane constraint and the bounds $x_i \leq \max{(z_57)_i} - 1 = 229$ to complete the constraints for our infeasible integer program. The function being optimized over is arbitrary; we used $\max{x_1}$ for our experiments.
+
+\end{example}
+
 % QUADRATICS
 
 \subsection{Quadratic Constraints}
 
-From 
+We now arrive at the primary goal for this project, computing new quadratic contraints for symmetric integer programs. This ends up being one of the simplest parts of the project once we have done the hard work of constructing invariant subspaces.  
+
+Let $\RR^n = \textrm{Fix(G)} \oplus V_1 \oplus V_2 \oplus ... \oplus V_k$ be a decomposition of $\RR^n$ into invariant subspaces of a group $G$. Furthermore, let $A_i$ be a matrix of basis vectors for each $V_i$. Using the same formula for projection onto a subspace as in the previous section, we can find the matrices 
+
+\[ P_i = A_i(A_i^\intercal A_i)^{-1} A^\intercal \]
+
+computing the projection of vectors onto each subspace. Given a constant $c$, we can construct quadratic constraints
+
+\[ ||x|_{V_i}|| \leq c \ \implies \ \sqrt{\langle x|_{V_i}, x|_{V_i} \rangle} \leq c \ \implies \langle P_i x, P_i x \rangle \leq c^2 \quad  \forall x \in \RR^n.\]
+
+Performing these computations is trivial using software such as Sage.
+
+Note that back in Theorem \eqref{cpclose}, it is stated that core points are close to \textbf{at least one} invariant subspace, not all invariant subspaces. We therefore cannot augment our original integer program with all of these quadratic constraints simultaneously, but instead have to create a new integer program for each of these constraints. We will not go over any examples of computing the coefficients for these quadratic inequalities as their construction is straightforward and mechanical.
 
 \subsection{Solving Integer Programs with CPLEX}
 
@@ -507,6 +570,7 @@ Due to the nature of the LP files we created
 
 \section{Computational Results}
 
+The only computation we had time to finish was the 15-2 group, as expected, the optimizer had a rough time trying to process it. It clocked in at a staggering  19112.48 seconds before timeing out. Next we were going to run it with our second quadratic constraint (Q2) and C value of 1. Third we were going to run it with our second quadratic constraint (Q2) and C value of 5. Next we were going to run it with our second quadratic constraint (Q2) and C value of 10.Fifth we were going to run it with our second quadratic constraint (Q2) and C value of 25.  Sixth we were going to run it with our second quadratic constraint (Q2) and C value of 50. Seventh we were going to run it with our second quadratic constraint (Q2) and C value of 100. Below results can be viewed in a table. All the results are in seconds. For the sake of reading this table S1Q2C1 represents the 15-2 group, subgroup 1, with the second quadratic constraint which is less than or equal to some C value which is 1. The rest of the names are named according to the same logic.
 
 
 
@@ -515,6 +579,7 @@ Due to the nature of the LP files we created
  \hline
  15-2s1 & s1q2c1 & s1q2c5 & s1q2c10 & s1q2c25 & s1q2c50 & s1q2c100\\ [1.5ex] 
  \hline\hline
+  19112.48 & runtime & runtime & runtime & runtime & runtime & runtime
  \\\hline
 \end{tabular}
 \end{center}
