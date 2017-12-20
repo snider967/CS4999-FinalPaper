@@ -82,6 +82,8 @@
 \begin{document}
 \maketitle
 
+\tableofcontents
+
 %% INTRODUCTION
 \section{Introduction}
 
@@ -473,6 +475,12 @@ Let $z_m := e^{(1)} + mw$, $z_m \in \ZZ$ be core point constructed using the pre
 $T_m$ has no interior integer points, as it is the orbit polytope of a core point, so if we can find a way to "cut off" each of the vertices $gz_m$ for $g \in G$, the integer program with the corresponding feasible region will be infeasible. Due to our method of constructing $z_m$, it contains a unique maximal coordinate $M := \max \lbrace {(z_m)_i} \rbrace$. Therefore the bounds $x_i \leq M-1$ for each $x_i$ can be used to cut off the integer vertices, and get an inequality desciption of $T_m' := T_m \setminus Gz_m$:
 
 \[ T_m' = \lbrace A^{-1}x \geq 0, \langle x,\mathds{1} \rangle = \langle z_m, \mathds{1} \rangle, x_i \leq M-1 \rbrace .\]
+
+Then the integer program 
+
+\[ \max c^\intercal x \] \[ x \in T_m' \] \[ x \in \ZZ^n \]
+
+for any $c \in \RR^n$ is infeasible with symmetry group $G$.
 
 % QUADRATICS
 

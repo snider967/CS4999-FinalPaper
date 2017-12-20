@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.12.19)  19 DEC 2017 23:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.12.19)  19 DEC 2017 23:31
 entering extended mode
 **./cs4999_report.tex
 (cs4999_report.tex
@@ -809,57 +809,61 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 83.
 ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-[1
+(cs4999_report.toc)
+\tf@toc=\write3
+\openout3 = `cs4999_report.toc'.
 
-{C:/Users/Josh/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+ [1
 
-LaTeX Warning: Citation `some' on page 2 undefined on input line 117.
+{C:/Users/Josh/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
 
-[2]
-
-LaTeX Warning: Citation `some' on page 3 undefined on input line 123.
-
-
-LaTeX Warning: Citation `some' on page 3 undefined on input line 137.
+LaTeX Warning: Citation `some' on page 3 undefined on input line 119.
 
 
-LaTeX Warning: Citation `rehn' on page 3 undefined on input line 143.
-
-
-LaTeX Warning: Citation `barvinok/blekherman' on page 3 undefined on input line
- 143.
+LaTeX Warning: Citation `some' on page 3 undefined on input line 125.
 
 [3]
 
-LaTeX Warning: Citation `rehn' on page 4 undefined on input line 151.
+LaTeX Warning: Citation `some' on page 4 undefined on input line 139.
+
+
+LaTeX Warning: Citation `rehn' on page 4 undefined on input line 145.
+
+
+LaTeX Warning: Citation `barvinok/blekherman' on page 4 undefined on input line
+ 145.
 
 [4]
 
-LaTeX Warning: Citation `char' on page 5 undefined on input line 194.
+LaTeX Warning: Citation `rehn' on page 5 undefined on input line 153.
 
 [5]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 221.
+
+LaTeX Warning: Citation `char' on page 6 undefined on input line 196.
+
+[6]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 223.
 
  ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 221.
- [6]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 224.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 223.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 226.
 
  ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 224.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 226.
 
-Overfull \hbox (2.2307pt too wide) in paragraph at lines 236--237
+[7]
+Overfull \hbox (2.2307pt too wide) in paragraph at lines 238--239
 [][][][][][][][][][][][][][][][][] 
  []
 
-[7] [8]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 374.
+[8] [9]
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 376.
 
 
 ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\doublestroke\udsrom
@@ -867,44 +871,44 @@ LaTeX Font Info:    Try loading font information for U+dsrom on input line 374.
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
 
-LaTeX Warning: Citation `rehn' on page 9 undefined on input line 376.
+LaTeX Warning: Citation `rehn' on page 10 undefined on input line 378.
 
 
 ("E:\Users\Josh\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\lstlang1.s
 ty"
 File: lstlang1.sty 2015/06/04 1.6 listings language file
-) [9] [10]
+) [10]
 
-LaTeX Warning: Citation `rehn' on page 11 undefined on input line 437.
-
-
-LaTeX Warning: Citation `rehn' on page 11 undefined on input line 445.
-
-
-LaTeX Warning: Citation `rehn' on page 11 undefined on input line 453.
+LaTeX Warning: Citation `rehn' on page 11 undefined on input line 439.
 
 [11]
 
-LaTeX Warning: Citation `rehn' on page 12 undefined on input line 459.
+LaTeX Warning: Citation `rehn' on page 12 undefined on input line 447.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 467--468
+LaTeX Warning: Citation `rehn' on page 12 undefined on input line 455.
+
+
+LaTeX Warning: Citation `rehn' on page 12 undefined on input line 461.
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 469--470
 
  []
 
-[12] [13]
+[13] [14]
 
-LaTeX Warning: Citation `some' on page 14 undefined on input line 526.
+LaTeX Warning: Citation `some' on page 15 undefined on input line 534.
 
-[14] [15] (cs4999_report.aux)
+[15] [16] (cs4999_report.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 7153 strings out of 493312
- 102113 string characters out of 3130261
- 196661 words of memory out of 3000000
+ 7156 strings out of 493312
+ 102200 string characters out of 3130261
+ 193344 words of memory out of 3000000
  10571 multiletter control sequences out of 15000+200000
  12154 words of font info for 48 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -929,9 +933,9 @@ b><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/doublestr
 oke/dsrom10.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/symbols/msam10.pfb><E:/Users/Josh/AppData/Local/Programs/MiKTeX 2
 .9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on cs4999_report.pdf (15 pages, 248030 bytes).
+Output written on cs4999_report.pdf (16 pages, 250883 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
+ 122 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
